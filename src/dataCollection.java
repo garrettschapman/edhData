@@ -199,7 +199,7 @@ class dataCollection {
 			System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("=============================================================================================");
+			System.out.println(edhData.divider);
 			System.out.println();
 			System.out.println();
 			System.out.println();
@@ -274,4 +274,4 @@ class dataCollection {
 	public String[][] getPlayerData() {
 		return playerData;
 	}
-} // end of class
+} // end of class dataCollection
