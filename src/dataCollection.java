@@ -48,152 +48,119 @@ class dataCollection {
 			System.out.print("Color identity: ");
 			playerData[i][3] = in.nextLine();
 			System.out.println();
-//validate numbers			
+			
 			System.out.print("Number of colors: ");
-			playerData[i][4] = in.nextLine();
-			System.out.println();
+			validateNum(i, 4, in.nextLine());
 			
 			System.out.print("Did they have fun? y/e/n: ");
 			validateText(i, 5, in.nextLine(), yen);
-//validate numbers			
+			
 			// opening hand info
 			System.out.print("Colors in opening hand: ");
-			playerData[i][6] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 6, in.nextLine());
+			
 			System.out.print("Colors of mana in opening hand: ");
-			playerData[i][7] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 7, in.nextLine());
+			
 			System.out.print("Total CMC of opening hand: ");
-			playerData[i][8] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 8, in.nextLine());
+			
 			// card types
 			System.out.print("Number of artifacts kept: ");
-			playerData[i][9] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 9, in.nextLine());
+			
 			System.out.print("Number of creatures kept: ");
-			playerData[i][10] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 10, in.nextLine());
+			
 			System.out.print("Number of lands kept: ");
-			playerData[i][11] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 11, in.nextLine());
+			
 			System.out.print("Number of enchantments kept: ");
-			playerData[i][12] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 12, in.nextLine());
+			
 			System.out.print("Number of instants kept: ");
-			playerData[i][13] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 13, in.nextLine());
+			
 			System.out.print("Number of sorceries kept: ");
-			playerData[i][14] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 14, in.nextLine());
+			
 			System.out.print("Number of planeswalkers kept: ");
-			playerData[i][15] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 15, in.nextLine());
+			
 			// card themes
 			System.out.print("Number of mana cards kept: ");
-			playerData[i][16] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 16, in.nextLine());
+			
 			System.out.print("Number of draw cards kept: ");
-			playerData[i][17] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 17, in.nextLine());
+			
 			System.out.print("Number of interaction cards kept: ");
-			playerData[i][18] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 18, in.nextLine());
+			
 			System.out.print("Number of threat cards kept: ");
-			playerData[i][19] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 19, in.nextLine());
+			
 			System.out.print("Number of combo cards kept: ");
-			playerData[i][20] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 20, in.nextLine());
+			
 			System.out.print("Number of other cards kept: ");
-			playerData[i][21] = in.nextLine();
-			System.out.println();
-//validate numbers			
+			validateNum(i, 21, in.nextLine());
+			
 			// mulligan info
 			System.out.print("Number of mulligans: ");
-			playerData[i][22] = in.nextLine();
+			validateNum(i, 22, in.nextLine());
 			int mulligans = Integer.parseInt(playerData[i][22]);
-			System.out.println();
-//validate numbers			
+			
 			// avoids asking player questions if there aren't mulligans
 			if (mulligans > 0) {
 				System.out.print("Number of cards pitched: ");
-				playerData[i][23] = in.nextLine();
+				validateNum(i, 23, in.nextLine());
 				int pitched = Integer.parseInt(playerData[i][23]);
-				System.out.println();
-//validate numbers				
+				
 				if (pitched > 0) {
 					System.out.print("Total CMC of cards pitched: ");
-					playerData[i][24] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 24, in.nextLine());
+					
 					// card types
 					System.out.print("Number of artifacts pitched: ");
-					playerData[i][25] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 25, in.nextLine());
+					
 					System.out.print("Number of creatures pitched: ");
-					playerData[i][26] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 26, in.nextLine());
+					
 					System.out.print("Number of lands pitched: ");
-					playerData[i][27] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 27, in.nextLine());
+					
 					System.out.print("Number of enchantments pitched: ");
-					playerData[i][28] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 28, in.nextLine());
+					
 					System.out.print("Number of instants pitched: ");
-					playerData[i][29] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 29, in.nextLine());
+					
 					System.out.print("Number of sorceries pitched: ");
-					playerData[i][30] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 30, in.nextLine());
+					
 					System.out.print("Number of planeswalkers pitched: ");
-					playerData[i][31] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 31, in.nextLine());
+					
 					// card themes
 					System.out.print("Number of mana cards pitched: ");
-					playerData[i][32] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 32, in.nextLine());
+					
 					System.out.print("Number of draw cards pitched: ");
-					playerData[i][33] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 33, in.nextLine());
+					
 					System.out.print("Number of interaction cards pitched: ");
-					playerData[i][34] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 34, in.nextLine());
+					
 					System.out.print("Number of threat cards pitched: ");
-					playerData[i][35] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 35, in.nextLine());
+					
 					System.out.print("Number of combo cards pitched: ");
-					playerData[i][36] = in.nextLine();
-					System.out.println();
-//validate numbers					
+					validateNum(i, 36, in.nextLine());
+					
 					System.out.print("Number of other cards pitched: ");
-					playerData[i][37] = in.nextLine();
-					System.out.println();
+					validateNum(i, 37, in.nextLine());
 				} else {
 					// for loop to assign 0 to all cards pitched
 					for (int j = 0; j < 14; j++) {
@@ -243,21 +210,19 @@ class dataCollection {
 	} // end of function collectData
 	
 	/*
-	 * function to validate user input
+	 * function to validate user text input
 	 * makes sure that user input is the type that can be used
 	 */
 	private void validateText(int i, int j, String input, String[] options) {
 		System.out.println();
-		boolean valid = false;
 		
 		// while loop to make sure the user inputs correct data
-		while(!valid) {
+		while(true) {
 			// for loop to check all options
 			for (int k = 0; k < options.length; k++) {
 				// checks if the input is valid
 				if (input.equals(options[k])) {
 					playerData[i][j] = input;
-					valid = true;
 					return;
 				} // end of check
 			} // end of for loop
@@ -281,6 +246,27 @@ class dataCollection {
 		} // end of while loop
 		
 	} // end of function validate
+	
+	/*
+	 * function to validate user integer input
+	 * makes sure the user gives a number
+	 */
+	private void validateNum(int i, int j, String input) {
+		System.out.println();
+		
+		// while loop to make sure user inputs an integer
+		while(true) {
+			try { // checks if the user input an integer
+				Integer.parseInt(input);
+				playerData[i][j] = input;
+				return;
+			} catch(NumberFormatException e) {
+				System.out.print("Please input a number: ");
+				input = in.nextLine();
+				System.out.println();
+			} //end of check
+		} // end of while loop
+	} // end of method validateNum
 	
 	/*
 	 * getter for playerData
