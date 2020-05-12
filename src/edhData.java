@@ -97,7 +97,5 @@ public class edhData {
 		// stores data from the game
 		dataStorage store = new dataStorage();
 		store.storeData(collect.getPlayerData());
-		
-		commands();
 	} //end of function add
 } //end of class edhData
