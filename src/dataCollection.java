@@ -159,14 +159,14 @@ class dataCollection {
 					validateNum(i, 37, user.nextLine());
 				} else {
 					// for loop to assign 0 to all cards pitched
-					for (int j = 0; j < 14; j++) {
-						playerData[i][j + 24] = "0";
+					for (int j = 24; j < 38; j++) {
+						playerData[i][j] = "0";
 					} // end of for loop
 				}
 			} else {
 				// for loop to assign 0 to all cards pitched
-				for (int j = 0; j < 15; j++) {
-					playerData[i][j + 23] = "0";
+				for (int j = 23; j < 38; j++) {
+					playerData[i][j] = "0";
 				} // end of for loop
 			} // end of checks
 		
@@ -194,9 +194,6 @@ class dataCollection {
 			
 			System.out.println(edhData.divider);
 		} // end of for loop
-		
-		System.out.println("Game data collection finished.");
-		System.out.println(edhData.divider);
 	} // end of function collectData
 	
 	/*

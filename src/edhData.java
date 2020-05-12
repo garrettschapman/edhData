@@ -15,7 +15,8 @@ public class edhData {
 	private static String[] commands = {
 			"add",
 			"exit",
-			"help"
+			"help",
+			"players"
 	};
 	
 	/*
@@ -45,6 +46,10 @@ public class edhData {
 				case "help":
 					System.out.println(divider);
 					help();
+					break;
+				case "players":
+					System.out.println(divider);
+					players();
 					break;
 				default:
 					System.out.println(divider);
@@ -99,6 +104,12 @@ public class edhData {
 		// stores data from the game
 		dataStorage store = new dataStorage();
 		store.storeData(collect.getPlayerData());
+		
+		System.out.println("Game data collection finished.");
+		System.out.println(edhData.divider);
+		
+		// updates database
+		database = new sqlEdit();
 	} //end of function add
 	
 	/*
@@ -116,9 +127,18 @@ public class edhData {
 		System.out.println("help");
 		System.out.println("     Displays the help menu.");
 		System.out.println();
+		System.out.println("players");
+		System.out.println("     Information about players.");
+		System.out.println();
 		System.out.println(divider);
 		System.out.print("Press any button to continue.");
 		in.nextLine();
 		System.out.println(divider);
 	} // end of function help
+	
+	private static void players() {
+		playerData players = new playerData(database, in);
+		
+		System.out.println(divider);
+	}
 } //end of class edhData
