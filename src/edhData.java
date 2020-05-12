@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 // edhData class by Garrett Chapman
@@ -5,13 +6,14 @@ import java.util.Scanner;
 
 public class edhData {
 	// constructs
-	private static Scanner in = new Scanner(System.in);
+	public static Scanner in = new Scanner(System.in);
 	
 	// menu text
 	public static String divider = "===========================================================================================================================================================";
 	private static String[] commands = {
-			"help",
-			"play"
+			"add",
+			"exit",
+			"help"
 	};
 	
 	/*
@@ -23,7 +25,30 @@ public class edhData {
 		
 		// while loop to allow functionality
 		while(true) {
-			
+			commands();
+			try {
+				System.out.println("Please enter a command: ");
+				switch(in.nextLine()) {
+				case "add":
+					System.out.println(divider);
+					add();
+					break;
+				case "exit":
+					System.out.println(divider);
+					System.out.println("Program closing.  Thank you.");
+					System.out.println(divider);
+					System.exit(0);
+					break;
+				case "help":
+					System.out.println(divider);
+					break;
+				default:
+					System.out.println(divider);
+					System.out.println("ERROR: unknown command.");
+				}
+			} catch(NoSuchElementException e) {
+				System.out.println("ERROR: bad scan");
+			}
 		} // end of while loop
 	} // end of main method
 	
@@ -37,7 +62,7 @@ public class edhData {
 		System.out.println("This software is designed to keep track of EDH (Commander) games of Magic: The Gathering, which is created by Wizards of the Coast and not owned by me.");
 		System.out.println("See the github repository here: https://github.com/garrettschapman/edhData");
 		
-		commands();
+		System.out.println(divider);
 	} //end of function mainMenu
 	
 	/*
@@ -45,26 +70,24 @@ public class edhData {
 	 * separated from main menu function because it will be printed again for incorrect input and after a command
 	 */
 	private static void commands() {
-		System.out.println(divider);
-		
 		System.out.println("Known commands:");
 		// for loop to add in commands
 		for (int i = 0; i < commands.length; i++) {
 			System.out.print("     " + commands[i]);
 		} // end of for loop
 		System.out.println();
-		
-		System.out.println(divider);
-		
-		System.out.println("enter a command: ");
+		System.out.println();
 	} // end of function commands
+	
+	
 	
 	/*
 	 *  function to collect and store game data
+	 *  called by add command
 	 */
-	private static void gameData() {
+	private static void add() {
 		System.out.print("How many players? ");
-		int players = in.nextInt();
+		int players = Integer.parseInt(in.nextLine());
 		System.out.println();
 		
 		// collects data from the game
@@ -76,5 +99,5 @@ public class edhData {
 		store.storeData(collect.getPlayerData());
 		
 		commands();
-	} //end of function gameData
+	} //end of function add
 } //end of class edhData
