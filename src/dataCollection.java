@@ -1,8 +1,12 @@
+import java.util.Scanner;
+
 // dataCollection class by Garrett Chapman
-// last updated 05/11/2020
+// last updated 05/12/2020
 // collects data from the user for edhData
 
 class dataCollection {
+	Scanner user;
+	
 	// variables
 	private String[][] playerData; // array to hold info about the player
 	private int numPlayers; //number of players
@@ -11,9 +15,10 @@ class dataCollection {
 	private String[] winCons = {"aggro", "aether", "labman", "combo", "scoops", "other"};
 	
 	// constructor
-	public dataCollection(int players) {
+	public dataCollection(int players, Scanner in) {
 		playerData = new String[players][41];
 		numPlayers = players;
+		user = in;
 	} // end of constructor
 	
 	/* function to collect data from the game
@@ -29,129 +34,129 @@ class dataCollection {
 			
 			// begin questions
 			System.out.print("Name: ");
-			playerData[i][0] = edhData.in.nextLine();
+			playerData[i][0] = user.nextLine();
 			
 			System.out.print("Commander: ");
-			playerData[i][1] = edhData.in.nextLine();
+			playerData[i][1] = user.nextLine();
 			
 			System.out.print("Theme: ");
-			playerData[i][2] = edhData.in.nextLine();
+			playerData[i][2] = user.nextLine();
 			
 			System.out.print("Color identity: ");
-			playerData[i][3] = edhData.in.nextLine();
+			playerData[i][3] = user.nextLine();
 			
 			System.out.print("Number of colors: ");
-			validateNum(i, 4, edhData.in.nextLine());
+			validateNum(i, 4, user.nextLine());
 			
 			System.out.print("Did they have fun? y/e/n: ");
-			validateText(i, 5, edhData.in.nextLine(), yen);
+			validateText(i, 5, user.nextLine(), yen);
 			
 			// opening hand info
 			System.out.print("Colors in opening hand: ");
-			validateNum(i, 6, edhData.in.nextLine());
+			validateNum(i, 6, user.nextLine());
 			
 			System.out.print("Colors of mana in opening hand: ");
-			validateNum(i, 7, edhData.in.nextLine());
+			validateNum(i, 7, user.nextLine());
 			
 			System.out.print("Total CMC of opening hand: ");
-			validateNum(i, 8, edhData.in.nextLine());
+			validateNum(i, 8, user.nextLine());
 			
 			// card types
 			System.out.print("Number of artifacts kept: ");
-			validateNum(i, 9, edhData.in.nextLine());
+			validateNum(i, 9, user.nextLine());
 			
 			System.out.print("Number of creatures kept: ");
-			validateNum(i, 10, edhData.in.nextLine());
+			validateNum(i, 10, user.nextLine());
 			
 			System.out.print("Number of lands kept: ");
-			validateNum(i, 11, edhData.in.nextLine());
+			validateNum(i, 11, user.nextLine());
 			
 			System.out.print("Number of enchantments kept: ");
-			validateNum(i, 12, edhData.in.nextLine());
+			validateNum(i, 12, user.nextLine());
 			
 			System.out.print("Number of instants kept: ");
-			validateNum(i, 13, edhData.in.nextLine());
+			validateNum(i, 13, user.nextLine());
 			
 			System.out.print("Number of sorceries kept: ");
-			validateNum(i, 14, edhData.in.nextLine());
+			validateNum(i, 14, user.nextLine());
 			
 			System.out.print("Number of planeswalkers kept: ");
-			validateNum(i, 15, edhData.in.nextLine());
+			validateNum(i, 15, user.nextLine());
 			
 			// card themes
 			System.out.print("Number of mana cards kept: ");
-			validateNum(i, 16, edhData.in.nextLine());
+			validateNum(i, 16, user.nextLine());
 			
 			System.out.print("Number of draw cards kept: ");
-			validateNum(i, 17, edhData.in.nextLine());
+			validateNum(i, 17, user.nextLine());
 			
 			System.out.print("Number of interaction cards kept: ");
-			validateNum(i, 18, edhData.in.nextLine());
+			validateNum(i, 18, user.nextLine());
 			
 			System.out.print("Number of threat cards kept: ");
-			validateNum(i, 19, edhData.in.nextLine());
+			validateNum(i, 19, user.nextLine());
 			
 			System.out.print("Number of combo cards kept: ");
-			validateNum(i, 20, edhData.in.nextLine());
+			validateNum(i, 20, user.nextLine());
 			
 			System.out.print("Number of other cards kept: ");
-			validateNum(i, 21, edhData.in.nextLine());
+			validateNum(i, 21, user.nextLine());
 			
 			// mulligan info
 			System.out.print("Number of mulligans: ");
-			validateNum(i, 22, edhData.in.nextLine());
+			validateNum(i, 22, user.nextLine());
 			int mulligans = Integer.parseInt(playerData[i][22]);
 			
 			// avoids asking player questions if there aren't mulligans
 			if (mulligans > 0) {
 				System.out.print("Number of cards pitched: ");
-				validateNum(i, 23, edhData.in.nextLine());
+				validateNum(i, 23, user.nextLine());
 				int pitched = Integer.parseInt(playerData[i][23]);
 				
 				if (pitched > 0) {
 					System.out.print("Total CMC of cards pitched: ");
-					validateNum(i, 24, edhData.in.nextLine());
+					validateNum(i, 24, user.nextLine());
 					
 					// card types
 					System.out.print("Number of artifacts pitched: ");
-					validateNum(i, 25, edhData.in.nextLine());
+					validateNum(i, 25, user.nextLine());
 					
 					System.out.print("Number of creatures pitched: ");
-					validateNum(i, 26, edhData.in.nextLine());
+					validateNum(i, 26, user.nextLine());
 					
 					System.out.print("Number of lands pitched: ");
-					validateNum(i, 27, edhData.in.nextLine());
+					validateNum(i, 27, user.nextLine());
 					
 					System.out.print("Number of enchantments pitched: ");
-					validateNum(i, 28, edhData.in.nextLine());
+					validateNum(i, 28, user.nextLine());
 					
 					System.out.print("Number of instants pitched: ");
-					validateNum(i, 29, edhData.in.nextLine());
+					validateNum(i, 29, user.nextLine());
 					
 					System.out.print("Number of sorceries pitched: ");
-					validateNum(i, 30, edhData.in.nextLine());
+					validateNum(i, 30, user.nextLine());
 					
 					System.out.print("Number of planeswalkers pitched: ");
-					validateNum(i, 31, edhData.in.nextLine());
+					validateNum(i, 31, user.nextLine());
 					
 					// card themes
 					System.out.print("Number of mana cards pitched: ");
-					validateNum(i, 32, edhData.in.nextLine());
+					validateNum(i, 32, user.nextLine());
 					
 					System.out.print("Number of draw cards pitched: ");
-					validateNum(i, 33, edhData.in.nextLine());
+					validateNum(i, 33, user.nextLine());
 					
 					System.out.print("Number of interaction cards pitched: ");
-					validateNum(i, 34, edhData.in.nextLine());
+					validateNum(i, 34, user.nextLine());
 					
 					System.out.print("Number of threat cards pitched: ");
-					validateNum(i, 35, edhData.in.nextLine());
+					validateNum(i, 35, user.nextLine());
 					
 					System.out.print("Number of combo cards pitched: ");
-					validateNum(i, 36, edhData.in.nextLine());
+					validateNum(i, 36, user.nextLine());
 					
 					System.out.print("Number of other cards pitched: ");
-					validateNum(i, 37, edhData.in.nextLine());
+					validateNum(i, 37, user.nextLine());
 				} else {
 					// for loop to assign 0 to all cards pitched
 					for (int j = 0; j < 14; j++) {
@@ -166,7 +171,7 @@ class dataCollection {
 			} // end of checks
 		
 			System.out.print("Did they scoop? y/n: ");
-			validateText(i, 38, edhData.in.nextLine(), yn);
+			validateText(i, 38, user.nextLine(), yn);
 			
 			// avoids asking about winning
 			if (playerData[i][38].equals("y") || winnerFound) {
@@ -174,14 +179,14 @@ class dataCollection {
 				playerData[i][40] = "-";
 			} else {
 				System.out.print("Did they win? y/n: ");
-				validateText(i, 39, edhData.in.nextLine(), yn);
+				validateText(i, 39, user.nextLine(), yn);
 				
 				// checks if a winner has been found
 				if (playerData[i][39].equals("y")) {
 					winnerFound = true;
 					
 					System.out.print("How did they win? aggro/aether/labman/combo/scoops/other: ");
-					validateText(i, 40, edhData.in.nextLine(), winCons);
+					validateText(i, 40, user.nextLine(), winCons);
 				} else {
 					playerData[i][40] = "-";
 				} //end of checks
@@ -225,7 +230,7 @@ class dataCollection {
 				} // end of check
 			} // end of for loop
 			
-			input = edhData.in.nextLine();
+			input = user.nextLine();
 		} // end of while loop
 		
 	} // end of function validate
@@ -244,7 +249,7 @@ class dataCollection {
 				return;
 			} catch(NumberFormatException e) {
 				System.out.print("Please input a number: ");
-				input = edhData.in.nextLine();
+				input = user.nextLine();
 			} //end of check
 		} // end of while loop
 	} // end of method validateNum

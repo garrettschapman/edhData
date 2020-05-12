@@ -2,11 +2,13 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 // edhData class by Garrett Chapman
-// last updated 05/11/2020
+// last updated 05/12/2020
+// controls main menu and user functionality
 
 public class edhData {
 	// constructs
-	public static Scanner in = new Scanner(System.in);
+	private static Scanner in = new Scanner(System.in);
+	private static sqlEdit database;
 	
 	// menu text
 	public static String divider = "===========================================================================================================================================================";
@@ -21,6 +23,7 @@ public class edhData {
 	 * creates and runs menu, allowing user functionality
 	 */
 	public static void main(String[] args) {
+		database = new sqlEdit();
 		mainMenu();
 		
 		// while loop to allow functionality
@@ -90,7 +93,7 @@ public class edhData {
 		System.out.println();
 		
 		// collects data from the game
-		dataCollection collect = new dataCollection(players);
+		dataCollection collect = new dataCollection(players, in);
 		collect.collectData();
 		
 		// stores data from the game
