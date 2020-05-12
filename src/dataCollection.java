@@ -254,5 +254,5 @@ class dataCollection {
 	 */
 	public String[][] getPlayerData() {
 		return playerData;
-	}
+	} // end of getter
 } // end of class dataCollection

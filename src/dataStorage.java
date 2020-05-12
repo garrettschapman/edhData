@@ -8,7 +8,10 @@ class dataStorage {
 		
 	} //end of constructor
 	
+	/*
+	 * takes data collected by dataCollection and stores it in the database
+	 */
 	public void storeData(String[][] data) {
 		
-	}
+	} // end of function storeData
 } // end of class dataStorage
