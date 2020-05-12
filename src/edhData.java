@@ -27,7 +27,7 @@ public class edhData {
 		while(true) {
 			commands();
 			try {
-				System.out.println("Please enter a command: ");
+				System.out.print("Please enter a command: ");
 				switch(in.nextLine()) {
 				case "add":
 					System.out.println(divider);
@@ -41,6 +41,7 @@ public class edhData {
 					break;
 				case "help":
 					System.out.println(divider);
+					help();
 					break;
 				default:
 					System.out.println(divider);
@@ -79,8 +80,6 @@ public class edhData {
 		System.out.println();
 	} // end of function commands
 	
-	
-	
 	/*
 	 *  function to collect and store game data
 	 *  called by add command
@@ -98,4 +97,25 @@ public class edhData {
 		dataStorage store = new dataStorage();
 		store.storeData(collect.getPlayerData());
 	} //end of function add
+	
+	/*
+	 * function to display help menu
+	 */
+	private static void help() {
+		System.out.println("Known commands:");
+		System.out.println();
+		System.out.println("add");
+		System.out.println("     Adds game data to the database.  Takes the number of players and information about each player in the game.");
+		System.out.println();
+		System.out.println("exit");
+		System.out.println("     Quits the program.");
+		System.out.println();
+		System.out.println("help");
+		System.out.println("     Displays the help menu.");
+		System.out.println();
+		System.out.println(divider);
+		System.out.print("Press any button to continue.");
+		in.nextLine();
+		System.out.println(divider);
+	} // end of function help
 } //end of class edhData
