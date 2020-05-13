@@ -107,8 +107,9 @@ class sqlEdit {
 		for (int i = 0; i < playerData.length; i++) {
 			// internal for loop to fill the current row of the table
 			for (int j = 0; j < playerData[i].length; j++) {
-				playerData[i][j] = resultSet.getObject(i+1);
+				playerData[i][j] = resultSet.getObject(j+1);
 			} // end of internal for loop
+			resultSet.next();
 		} // end of for loop
 	} // end of function generatePlayerData
 	

@@ -34,7 +34,6 @@ public class edhData {
 				System.out.print("Please enter a command: ");
 				switch(in.nextLine()) {
 				case "add":
-					System.out.println(divider);
 					add();
 					break;
 				case "exit":
@@ -44,11 +43,9 @@ public class edhData {
 					System.exit(0);
 					break;
 				case "help":
-					System.out.println(divider);
 					help();
 					break;
 				case "players":
-					System.out.println(divider);
 					players();
 					break;
 				default:
@@ -93,6 +90,7 @@ public class edhData {
 	 *  called by add command
 	 */
 	private static void add() {
+		System.out.println(divider);
 		System.out.print("How many players? ");
 		int players = Integer.parseInt(in.nextLine());
 		System.out.println();
@@ -116,6 +114,7 @@ public class edhData {
 	 * function to display help menu
 	 */
 	private static void help() {
+		System.out.println(divider);
 		System.out.println("Known commands:");
 		System.out.println();
 		System.out.println("add");
@@ -128,7 +127,7 @@ public class edhData {
 		System.out.println("     Displays the help menu.");
 		System.out.println();
 		System.out.println("players");
-		System.out.println("     Information about players.");
+		System.out.println("     Opens the menu for players.");
 		System.out.println();
 		System.out.println(divider);
 		System.out.print("Press any button to continue.");
