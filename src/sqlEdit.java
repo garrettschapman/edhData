@@ -27,6 +27,7 @@ class sqlEdit {
 	// information from the database
 	private Object[][] playerData = new Object[0][0];
 	private Object[][] deckData = new Object[0][0];
+	private Object[][] gameData = new Object[0][0];
 	
 	// constructor
 	public sqlEdit() {
@@ -41,16 +42,21 @@ class sqlEdit {
 			resultSet = statement.executeQuery(sqlStatement);
 			resultSet.next();
 			playerData = new Object[resultSet.getInt(1)][45];
-			generatePlayerData(resultSet.getInt(1));
+			readPlayerData(resultSet.getInt(1));
 			
 			// deck data
 			sqlStatement = "SELECT COUNT(deckID) FROM dbo.edhDecks";
 			resultSet = statement.executeQuery(sqlStatement);
 			resultSet.next();
 			deckData = new Object[resultSet.getInt(1)][52];
-			generateDeckData(resultSet.getInt(1));
+			readDeckData(resultSet.getInt(1));
 			
 			// game data
+			sqlStatement = "SELECT COUNT(playerID) FROM dbo.gameData";
+			resultSet = statement.executeQuery(sqlStatement);
+			resultSet.next();
+			gameData = new Object[resultSet.getInt(1)][14];
+			readGameData(resultSet.getInt(1));
 		} catch (SQLException e) {
 			System.out.println("ERROR: there was an error with the database.");
 			e.printStackTrace();
@@ -59,11 +65,13 @@ class sqlEdit {
 		}
 	} // end of constructor
 	
+	// functions to read from the database
+	
 	/*
 	 * function to set up player data
-	 * gets information from the database
+	 * reads information from the database
 	 */
-	private void generatePlayerData(int rows) throws SQLException {
+	private void readPlayerData(int rows) throws SQLException {
 		sqlStatement = "SELECT TOP " + rows + " "
 				+ "playerID, "
 				+ "name, "
@@ -77,9 +85,9 @@ class sqlEdit {
 				+ "artifactsKept, "
 				+ "creaturesKept, "
 				+ "landsKept, "
+				+ "enchantmentsKept, "
 				+ "instantsKept, "
 				+ "sorceriesKept, "
-				+ "enchantmentsKept, "
 				+ "planeswalkersKept, "
 				+ "manaKept, "
 				+ "drawKept, "
@@ -122,13 +130,13 @@ class sqlEdit {
 			} // end of internal for loop
 			resultSet.next();
 		} // end of for loop
-	} // end of function generatePlayerData
+	} // end of function readPlayerData
 	
 	/*
 	 * function to set up deck data
-	 * gets data from the database
+	 * reads data from the database
 	 */
-	private void generateDeckData(int rows) throws SQLException {
+	private void readDeckData(int rows) throws SQLException {
 		sqlStatement = "SELECT TOP " + rows + " "
 				+ "deckID, "
 				+ "commander, "
@@ -194,9 +202,47 @@ class sqlEdit {
 			} // end of internal for loop
 			resultSet.next();
 		} // end of for loop
-	} // end of function generateDeckData
+	} // end of function readDeckData
+	
+	/*
+	 * function to set up game data
+	 * reads data from the database
+	 */
+	private void readGameData(int rows) throws SQLException {
+		sqlStatement = "SELECT TOP " + rows + " "
+				+ "playerID, "
+				+ "deckID, "
+				+ "totalGames, "
+				+ "mulligans, "
+				+ "funGames, "
+				+ "ehGames, "
+				+ "unfunGames, "
+				+ "wins, "
+				+ "aggroWins, "
+				+ "comboWins, "
+				+ "scoopWins, "
+				+ "aetherfluxWins, "
+				+ "labmanWins, "
+				+ "otherWins"
+				+ " FROM dbo.gameData";
+		resultSet = statement.executeQuery(sqlStatement);
+		resultSet.next();
+		
+		// for loop to fill the table
+		for (int i = 0; i < gameData.length; i++) {
+			// internal for loop to fill the current row of the table
+			for (int j = 0; j < gameData[i].length; j++) {
+				gameData[i][j] = resultSet.getObject(j+1);
+			} // end of internal for loop
+			resultSet.next();
+		} // end of for loop
+	} // end of function readGameData
+	
+	// functions to write to the database
 	
 	
+	
+	// getters
 	
 	/*
 	 * function to get information from the players
@@ -205,10 +251,19 @@ class sqlEdit {
 		return playerData;
 	} // end of function getPlayerData
 	
+	
 	/*
 	 * function to get information from the decks
 	 */
 	public Object[][] getDeckData(){
 		return deckData;
 	} // end of function getDeckData
-} // end of class sqlEdit
+	
+	
+	/*
+	 * function to get information about games (player/deck combinations)
+	 */
+	public Object[][] getGameData(){
+		return gameData;
+	} // end of function getGameData} // end of class sqlEdit
+}
