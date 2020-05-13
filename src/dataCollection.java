@@ -6,7 +6,7 @@ import java.util.Scanner;
 // collects data from the user for edhData
 
 class dataCollection {
-	Scanner user;
+	private Scanner user;
 	
 	// variables
 	private String[][] playerData; // array to hold info about the player

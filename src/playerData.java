@@ -8,14 +8,15 @@ import java.util.Scanner;
 
 class playerData {
 	// constructs
-	sqlEdit database;
-	Scanner user;
+	private sqlEdit database;
+	private Scanner user;
 	
 	// list of players and their information
-	Object[][] rawData;
-	Object[][] playerList;
-	Object[] winner = new Object[46];
+	private Object[][] rawData;
+	private Object[][] playerList;
+	private Object[] winner = new Object[46];
 	private int sortColumn = 0;
+	private String columnName = "ID";
 	
 	// menu stuff
 	String[] commands = {
@@ -23,7 +24,9 @@ class playerData {
 		"categories",
 		"exit",
 		"help",
+		"high",
 		"list",
+		"low",
 		"sort"
 	};
 	String[] categories = {
@@ -47,10 +50,10 @@ class playerData {
 	 */
 	public void start() {
 		makePlayerList();
-		playerMenu();
 		
 		// while loop to allow functionality
 		loop: while(true) {
+			playerMenu();
 			playerCommands();
 			try {
 				System.out.print("Please enter a command: ");
@@ -68,8 +71,14 @@ class playerData {
 				case "help":
 					playerHelp();
 					break;
+				case "high":
+					getTopPlayers();
+					break;
 				case "list":
 					getPlayerList();
+					break;
+				case "low":
+					getBottomPlayers();
 					break;
 				case "sort":
 					sortPlayers();
@@ -81,6 +90,8 @@ class playerData {
 			} catch(NoSuchElementException e) {
 				System.out.println("ERROR: bad scan");
 			}
+			
+			// clear console
 		} // end of while loop
 	} // end of function start
 	
@@ -97,12 +108,12 @@ class playerData {
 				// get average winner data
 				winner[0] = rawData[i][0]; // player ID
 				
-				winner[1] = rawData[i][1];		// player name
-				winner[2] = getRatio(i, 6, 2);	// average player number
-				winner[3] = rawData[i][2];		// total games played
-				winner[4] = getRatio(i, 3, 2);	// percent of fun games
-				winner[5] = getRatio(i, 4, 2);	// percent of eh games
-				winner[6] = getRatio(i, 5, 2);	// percent of unfun games
+				winner[1] = rawData[i][1];			// player name
+				winner[2] = getRatio(i, 6, 2);		// average player number
+				winner[3] = rawData[i][2];			// total games played
+				winner[4] = getRatio(i, 3, 2)*100;	// percent of fun games
+				winner[5] = getRatio(i, 4, 2)*100;	// percent of eh games
+				winner[6] = getRatio(i, 5, 2)*100;	// percent of unfun games
 				
 				// number cards kept in hand
 				int keptCards = 0;
@@ -113,57 +124,57 @@ class playerData {
 				// stuff about cards kept in hand
 				winner[7] = (double)keptCards / (double)Integer.parseInt(rawData[i][2].toString()); 				// average starting hand size
 				winner[8] = getRatioComplex(i, 8, (keptCards - Integer.parseInt(rawData[i][11].toString())));	// average CMC of cards kept in hand
-				winner[9] = getRatioComplex(i, 9, keptCards);	// percent of artifacts kept
-				winner[10] = getRatioComplex(i, 10, keptCards);	// percent of creatures kept
-				winner[11] = getRatioComplex(i, 11, keptCards);	// percent of lands kept
-				winner[12] = getRatioComplex(i, 12, keptCards);	// percent of enchantments kept
-				winner[13] = getRatioComplex(i, 13, keptCards);	// percent of instants kept
-				winner[14] = getRatioComplex(i, 14, keptCards);	// percent of sorceries kept
-				winner[15] = getRatioComplex(i, 15, keptCards);	// percent of planeswalkers kept
-				winner[16] = getRatioComplex(i, 16, keptCards);	// percent of mana cards kept
-				winner[17] = getRatioComplex(i, 17, keptCards);	// percent of draw cards kept
-				winner[18] = getRatioComplex(i, 18, keptCards);	// percent of interaction cards kept
-				winner[19] = getRatioComplex(i, 19, keptCards);	// percent of threat cards kept
-				winner[20] = getRatioComplex(i, 20, keptCards);	// percent of combo cards kept
-				winner[21] = getRatioComplex(i, 21, keptCards);	// percent of other cards kept
+				winner[9] = getRatioComplex(i, 9, keptCards)*100;	// percent of artifacts kept
+				winner[10] = getRatioComplex(i, 10, keptCards)*100;	// percent of creatures kept
+				winner[11] = getRatioComplex(i, 11, keptCards)*100;	// percent of lands kept
+				winner[12] = getRatioComplex(i, 12, keptCards)*100;	// percent of enchantments kept
+				winner[13] = getRatioComplex(i, 13, keptCards)*100;	// percent of instants kept
+				winner[14] = getRatioComplex(i, 14, keptCards)*100;	// percent of sorceries kept
+				winner[15] = getRatioComplex(i, 15, keptCards)*100;	// percent of planeswalkers kept
+				winner[16] = getRatioComplex(i, 16, keptCards)*100;	// percent of mana cards kept
+				winner[17] = getRatioComplex(i, 17, keptCards)*100;	// percent of draw cards kept
+				winner[18] = getRatioComplex(i, 18, keptCards)*100;	// percent of interaction cards kept
+				winner[19] = getRatioComplex(i, 19, keptCards)*100;	// percent of threat cards kept
+				winner[20] = getRatioComplex(i, 20, keptCards)*100;	// percent of combo cards kept
+				winner[21] = getRatioComplex(i, 21, keptCards)*100;	// percent of other cards kept
 				
 				// stuff about mulligans
-				winner[22] = getRatio(i, 22, 2);	// average mulligans
-				winner[23] = getRatio(i, 23, 2);	// average number of cards pitched
+				winner[22] = getRatio(i, 22, 2);		// average mulligans
+				winner[23] = getRatio(i, 23, 2);		// average number of cards pitched
 				winner[24] = getRatioComplex(i, 24, (Integer.parseInt(rawData[i][23].toString()) - Integer.parseInt(rawData[i][27].toString()))); // average CMC of cards pitched
-				winner[25] = getRatio(i, 25, 23);	// percent of artifacts pitched
-				winner[26] = getRatio(i, 26, 23);	// percent of creatures pitched
-				winner[27] = getRatio(i, 27, 23);	// percent of lands pitched
-				winner[28] = getRatio(i, 28, 23);	// percent of enchantments pitched
-				winner[29] = getRatio(i, 29, 23);	// percent of instants pitched
-				winner[30] = getRatio(i, 30, 23);	// percent of sorceries pitched
-				winner[31] = getRatio(i, 31, 23);	// percent of planeswalkers pitched
-				winner[32] = getRatio(i, 32, 23);	// percent of mana cards pitched
-				winner[33] = getRatio(i, 33, 23);	// percent of draw cards pitched
-				winner[34] = getRatio(i, 34, 23);	// percent of interaction cards pitched
-				winner[35] = getRatio(i, 35, 23);	// percent of threat cards pitched
-				winner[36] = getRatio(i, 36, 23);	// percent of combo cards pitched
-				winner[37] = getRatio(i, 37, 23);	// percent of other cards pitched
+				winner[25] = getRatio(i, 25, 23)*100;	// percent of artifacts pitched
+				winner[26] = getRatio(i, 26, 23)*100;	// percent of creatures pitched
+				winner[27] = getRatio(i, 27, 23)*100;	// percent of lands pitched
+				winner[28] = getRatio(i, 28, 23)*100;	// percent of enchantments pitched
+				winner[29] = getRatio(i, 29, 23)*100;	// percent of instants pitched
+				winner[30] = getRatio(i, 30, 23)*100;	// percent of sorceries pitched
+				winner[31] = getRatio(i, 31, 23)*100;	// percent of planeswalkers pitched
+				winner[32] = getRatio(i, 32, 23)*100;	// percent of mana cards pitched
+				winner[33] = getRatio(i, 33, 23)*100;	// percent of draw cards pitched
+				winner[34] = getRatio(i, 34, 23)*100;	// percent of interaction cards pitched
+				winner[35] = getRatio(i, 35, 23)*100;	// percent of threat cards pitched
+				winner[36] = getRatio(i, 36, 23)*100;	// percent of combo cards pitched
+				winner[37] = getRatio(i, 37, 23)*100;	// percent of other cards pitched
 				
 				// stuff about end of game
-				winner[38] = getRatio(i, 7, 2);		// scoop rate
-				winner[39] = getRatio(i, 38, 2);	// win rate
-				winner[40] = getRatio(i, 39, 38);	// percent of aggro wins
-				winner[41] = getRatio(i, 40, 38);	// percent of aetherflux reservoir wins
-				winner[42] = getRatio(i, 41, 38);	// percent of laboratory maniac wins
-				winner[43] = getRatio(i, 42, 38);	// percent of other combo wins
-				winner[44] = getRatio(i, 43, 38);	// percent of wins via opponents scooping
-				winner[45] = getRatio(i, 44, 38);	// percent of other wins
+				winner[38] = getRatio(i, 7, 2)*100;		// scoop rate
+				winner[39] = getRatio(i, 38, 2)*100;	// win rate
+				winner[40] = getRatio(i, 39, 38)*100;	// percent of aggro wins
+				winner[41] = getRatio(i, 40, 38)*100;	// percent of aetherflux reservoir wins
+				winner[42] = getRatio(i, 41, 38)*100;	// percent of laboratory maniac wins
+				winner[43] = getRatio(i, 42, 38)*100;	// percent of other combo wins
+				winner[44] = getRatio(i, 43, 38)*100;	// percent of wins via opponents scooping
+				winner[45] = getRatio(i, 44, 38)*100;	// percent of other wins
 			} else {
 				// actual players
 				playerList[i-1][0] = rawData[i][0]; // player ID
 				
-				playerList[i-1][1] = rawData[i][1];		// player name
-				playerList[i-1][2] = getRatio(i, 6, 2);	// average player number
-				playerList[i-1][3] = rawData[i][2];		// total games played
-				playerList[i-1][4] = getRatio(i, 3, 2);	// percent of fun games
-				playerList[i-1][5] = getRatio(i, 4, 2);	// percent of eh games
-				playerList[i-1][6] = getRatio(i, 5, 2);	// percent of unfun games
+				playerList[i-1][1] = rawData[i][1];			// player name
+				playerList[i-1][2] = getRatio(i, 6, 2);		// average player number
+				playerList[i-1][3] = rawData[i][2];			// total games played
+				playerList[i-1][4] = getRatio(i, 3, 2)*100;	// percent of fun games
+				playerList[i-1][5] = getRatio(i, 4, 2)*100;	// percent of eh games
+				playerList[i-1][6] = getRatio(i, 5, 2)*100;	// percent of unfun games
 				
 				// number cards kept in hand
 				int keptCards = 0;
@@ -174,47 +185,47 @@ class playerData {
 				// stuff about cards kept in hand
 				playerList[i-1][7] = (double)keptCards / (double)Integer.parseInt(rawData[i][2].toString()); 				// average starting hand size
 				playerList[i-1][8] = getRatioComplex(i, 8, (keptCards - Integer.parseInt(rawData[i][11].toString())));	// average CMC of cards kept in hand
-				playerList[i-1][9] = getRatioComplex(i, 9, keptCards);		// percent of artifacts kept
-				playerList[i-1][10] = getRatioComplex(i, 10, keptCards);	// percent of creatures kept
-				playerList[i-1][11] = getRatioComplex(i, 11, keptCards);	// percent of lands kept
-				playerList[i-1][12] = getRatioComplex(i, 12, keptCards);	// percent of enchantments kept
-				playerList[i-1][13] = getRatioComplex(i, 13, keptCards);	// percent of instants kept
-				playerList[i-1][14] = getRatioComplex(i, 14, keptCards);	// percent of sorceries kept
-				playerList[i-1][15] = getRatioComplex(i, 15, keptCards);	// percent of planeswalkers kept
-				playerList[i-1][16] = getRatioComplex(i, 16, keptCards);	// percent of mana cards kept
-				playerList[i-1][17] = getRatioComplex(i, 17, keptCards);	// percent of draw cards kept
-				playerList[i-1][18] = getRatioComplex(i, 18, keptCards);	// percent of interaction cards kept
-				playerList[i-1][19] = getRatioComplex(i, 19, keptCards);	// percent of threat cards kept
-				playerList[i-1][20] = getRatioComplex(i, 20, keptCards);	// percent of combo cards kept
-				playerList[i-1][21] = getRatioComplex(i, 21, keptCards);	// percent of other cards kept
+				playerList[i-1][9] = getRatioComplex(i, 9, keptCards)*100;		// percent of artifacts kept
+				playerList[i-1][10] = getRatioComplex(i, 10, keptCards)*100;	// percent of creatures kept
+				playerList[i-1][11] = getRatioComplex(i, 11, keptCards)*100;	// percent of lands kept
+				playerList[i-1][12] = getRatioComplex(i, 12, keptCards)*100;	// percent of enchantments kept
+				playerList[i-1][13] = getRatioComplex(i, 13, keptCards)*100;	// percent of instants kept
+				playerList[i-1][14] = getRatioComplex(i, 14, keptCards)*100;	// percent of sorceries kept
+				playerList[i-1][15] = getRatioComplex(i, 15, keptCards)*100;	// percent of planeswalkers kept
+				playerList[i-1][16] = getRatioComplex(i, 16, keptCards)*100;	// percent of mana cards kept
+				playerList[i-1][17] = getRatioComplex(i, 17, keptCards)*100;	// percent of draw cards kept
+				playerList[i-1][18] = getRatioComplex(i, 18, keptCards)*100;	// percent of interaction cards kept
+				playerList[i-1][19] = getRatioComplex(i, 19, keptCards)*100;	// percent of threat cards kept
+				playerList[i-1][20] = getRatioComplex(i, 20, keptCards)*100;	// percent of combo cards kept
+				playerList[i-1][21] = getRatioComplex(i, 21, keptCards)*100;	// percent of other cards kept
 				
 				// stuff about mulligans
-				playerList[i-1][22] = getRatio(i, 22, 2);	// average mulligans
-				playerList[i-1][23] = getRatio(i, 23, 2);	// average number of cards pitched
+				playerList[i-1][22] = getRatio(i, 22, 2);		// average mulligans
+				playerList[i-1][23] = getRatio(i, 23, 2);		// average number of cards pitched
 				playerList[i-1][24] = getRatioComplex(i, 24, (Integer.parseInt(rawData[i][23].toString()) - Integer.parseInt(rawData[i][27].toString()))); // average CMC of cards pitched
-				playerList[i-1][25] = getRatio(i, 25, 23);	// percent of artifacts pitched
-				playerList[i-1][26] = getRatio(i, 26, 23);	// percent of creatures pitched
-				playerList[i-1][27] = getRatio(i, 27, 23);	// percent of lands pitched
-				playerList[i-1][28] = getRatio(i, 28, 23);	// percent of enchantments pitched
-				playerList[i-1][29] = getRatio(i, 29, 23);	// percent of instants pitched
-				playerList[i-1][30] = getRatio(i, 30, 23);	// percent of sorceries pitched
-				playerList[i-1][31] = getRatio(i, 31, 23);	// percent of planeswalkers pitched
-				playerList[i-1][32] = getRatio(i, 32, 23);	// percent of mana cards pitched
-				playerList[i-1][33] = getRatio(i, 33, 23);	// percent of draw cards pitched
-				playerList[i-1][34] = getRatio(i, 34, 23);	// percent of interaction cards pitched
-				playerList[i-1][35] = getRatio(i, 35, 23);	// percent of threat cards pitched
-				playerList[i-1][36] = getRatio(i, 36, 23);	// percent of combo cards pitched
-				playerList[i-1][37] = getRatio(i, 37, 23);	// percent of other cards pitched
+				playerList[i-1][25] = getRatio(i, 25, 23)*100;	// percent of artifacts pitched
+				playerList[i-1][26] = getRatio(i, 26, 23)*100;	// percent of creatures pitched
+				playerList[i-1][27] = getRatio(i, 27, 23)*100;	// percent of lands pitched
+				playerList[i-1][28] = getRatio(i, 28, 23)*100;	// percent of enchantments pitched
+				playerList[i-1][29] = getRatio(i, 29, 23)*100;	// percent of instants pitched
+				playerList[i-1][30] = getRatio(i, 30, 23)*100;	// percent of sorceries pitched
+				playerList[i-1][31] = getRatio(i, 31, 23)*100;	// percent of planeswalkers pitched
+				playerList[i-1][32] = getRatio(i, 32, 23)*100;	// percent of mana cards pitched
+				playerList[i-1][33] = getRatio(i, 33, 23)*100;	// percent of draw cards pitched
+				playerList[i-1][34] = getRatio(i, 34, 23)*100;	// percent of interaction cards pitched
+				playerList[i-1][35] = getRatio(i, 35, 23)*100;	// percent of threat cards pitched
+				playerList[i-1][36] = getRatio(i, 36, 23)*100;	// percent of combo cards pitched
+				playerList[i-1][37] = getRatio(i, 37, 23)*100;	// percent of other cards pitched
 				
 				// stuff about end of game
-				playerList[i-1][38] = getRatio(i, 7, 2);	// scoop rate
-				playerList[i-1][39] = getRatio(i, 38, 2);	// win rate
-				playerList[i-1][40] = getRatio(i, 39, 38);	// percent of aggro wins
-				playerList[i-1][41] = getRatio(i, 40, 38);	// percent of aetherflux reservoir wins
-				playerList[i-1][42] = getRatio(i, 41, 38);	// percent of laboratory maniac wins
-				playerList[i-1][43] = getRatio(i, 42, 38);	// percent of other combo wins
-				playerList[i-1][44] = getRatio(i, 43, 38);	// percent of wins via opponents scooping
-				playerList[i-1][45] = getRatio(i, 44, 38);	// percent of other wins
+				playerList[i-1][38] = getRatio(i, 7, 2)*100;	// scoop rate
+				playerList[i-1][39] = getRatio(i, 38, 2)*100;	// win rate
+				playerList[i-1][40] = getRatio(i, 39, 38)*100;	// percent of aggro wins
+				playerList[i-1][41] = getRatio(i, 40, 38)*100;	// percent of aetherflux reservoir wins
+				playerList[i-1][42] = getRatio(i, 41, 38)*100;	// percent of laboratory maniac wins
+				playerList[i-1][43] = getRatio(i, 42, 38)*100;	// percent of other combo wins
+				playerList[i-1][44] = getRatio(i, 43, 38)*100;	// percent of wins via opponents scooping
+				playerList[i-1][45] = getRatio(i, 44, 38)*100;	// percent of other wins
 			}
 		} // end of for loop
 	} // end of function makePlayerList
@@ -259,10 +270,19 @@ class playerData {
 		System.out.println("     Quits the program.");
 		System.out.println("help");
 		System.out.println("     Displays the help menu.");
+		System.out.println("high");
+		System.out.println("     Asks for a number and lists that many top players in the current category.");
 		System.out.println("list");
 		System.out.println("     Lists all players in the database.");
+		System.out.println("low");
+		System.out.println("     Asks for a number and lists that many bottom players in the current category.");
 		System.out.println("sort");
 		System.out.println("     Asks for a category and sorts all players in the database by that category.");
+		System.out.println();
+		System.out.println(edhData.divider);
+		System.out.print("Press any button to continue.");
+		user.nextLine();
+		
 		System.out.println(edhData.divider);
 	} // end of function playerHelp
 	
@@ -309,36 +329,43 @@ class playerData {
 		case "cmc":
 			System.out.println("Sorting players by average opening hand CMC...");
 			sortColumn = 8;
+			columnName = "Average Opening Hand CMC";
 			System.out.println("Finished sorting.");
 			break;
 		case "fun":
 			System.out.println("Sorting players by percentage of fun games...");
 			sortColumn = 4;
+			columnName = "Fun Games (%)";
 			System.out.println("Finished sorting.");
 			break;
 		case "games":
 			System.out.println("Sorting players by total games played...");
 			sortColumn = 3;
+			columnName = "Total Games";
 			System.out.println("Finished sorting.");
 			break;
 		case "mulligans":
 			System.out.println("Sorting players by average mulligans per game...");
 			sortColumn = 22;
+			columnName = "Average Mulligans per Game";
 			System.out.println("Finished sorting.");
 			break;
 		case "number":
 			System.out.println("Sorting players by average starting turn...");
 			sortColumn = 2;
+			columnName = "Average Starting Turn";
 			System.out.println("Finished sorting.");
 			break;
 		case "scoops":
 			System.out.println("Sorting players by scoop rate...");
 			sortColumn = 38;
+			columnName = "Scoop Rate (%)";
 			System.out.println("Finished sorting.");
 			break;
 		case "wins":
 			System.out.println("Sorting players by win rate...");
 			sortColumn = 39;
+			columnName = "Win Rate (%)";
 			System.out.println("Finished sorting.");
 			break;
 		default:
@@ -351,11 +378,134 @@ class playerData {
 	} // end of function sortPlayers
 	
 	/*
-	 * 
+	 * function to get the top players
+	 * asks the user for the number of players to show
 	 */
 	private void getTopPlayers() {
+		System.out.println(edhData.divider);
 		
+		if(sortColumn == 0) {
+			System.out.println("Please sort the players first using the sort command.");
+			System.out.println(edhData.divider);
+			return;
+		}
+		
+		System.out.print("Please enter a number: ");
+		String input = user.nextLine();
+		int number;
+		
+		// loop to validate input
+		loop: while(true) {
+			try {
+				number = Integer.parseInt(input);
+				break loop;
+			} catch (NumberFormatException e) {
+				System.out.print("");
+				input = user.nextLine();
+			}
+		} // end of while loop
+		
+		if(number > playerList.length) {
+			number = playerList.length;
+		}
+		
+		if (sortColumn == 2) {
+			printFirstPlayers(number);
+		} else {
+			printLastPlayers(number);
+		}
 	} // end of function getTopPlayers
+	
+	/*
+	 * function to get the bottom players
+	 * asks the user for the number of players to show
+	 */
+	private void getBottomPlayers() {
+		System.out.println(edhData.divider);
+		
+		if(sortColumn == 0) {
+			System.out.println("Please sort the players first using the sort command.");
+			System.out.println(edhData.divider);
+			return;
+		}
+		
+		System.out.print("Please enter a number: ");
+		String input = user.nextLine();
+		int number;
+		
+		// loop to validate input
+		loop: while(true) {
+			try {
+				number = Integer.parseInt(input);
+				break loop;
+			} catch (NumberFormatException e) {
+				System.out.print("");
+				input = user.nextLine();
+			}
+		} // end of while loop
+		
+		if(number > playerList.length) {
+			number = playerList.length;
+		}
+		
+		if (sortColumn == 2) {
+			printLastPlayers(number);
+		} else {
+			printFirstPlayers(number);
+		}
+	} // end of function getBottomPlayers
+	
+	/*
+	 * function to print the first X players where X is the number selected by the user
+	 */
+	private void printFirstPlayers(int number) {
+		System.out.println(edhData.divider);
+		System.out.println();
+		System.out.format("%-15s", "Player");
+		System.out.print("|" + columnName);
+		System.out.println();
+		System.out.println("---------------|--------------------------");
+		
+		// for loop to print each player's information
+		for(int i = 0; i < number; i++) {
+			System.out.format("%-15s", playerList[i][1].toString());
+			System.out.print("|" + playerList[i][sortColumn].toString());
+			System.out.println();
+		} // end of for loop
+		
+		System.out.println();
+		System.out.println(edhData.divider);
+		System.out.print("Press any button to continue.");
+		user.nextLine();
+		
+		System.out.println(edhData.divider);
+	} // end of function printFirstPlayers
+	
+	/*
+	 * function to print the last X players where X is the number selected by the user
+	 */
+	private void printLastPlayers(int number) {
+		System.out.println(edhData.divider);
+		System.out.println();
+		System.out.format("%-15s", "Player");
+		System.out.print("|" + columnName);
+		System.out.println();
+		System.out.println("---------------|--------------------------");
+		
+		// for loop to print each player's information
+		for(int i = 1; i <= number; i++) {
+			System.out.format("%-15s", playerList[playerList.length-i][1].toString());
+			System.out.print("|" + playerList[playerList.length-i][sortColumn].toString());
+			System.out.println();
+		} // end of for loop
+		
+		System.out.println();
+		System.out.println(edhData.divider);
+		System.out.print("Press any button to continue.");
+		user.nextLine();
+		
+		System.out.println(edhData.divider);
+	} // end of function printLastPlayers
 	
 	/*
 	 * function to get a ratio for the data table

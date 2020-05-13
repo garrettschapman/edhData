@@ -26,10 +26,10 @@ public class edhData {
 	 */
 	public static void main(String[] args) {
 		database = new sqlEdit();
-		mainMenu();
 		
 		// while loop to allow functionality
 		while(true) {
+			mainMenu();
 			commands();
 			try {
 				System.out.print("Please enter a command: ");
@@ -56,6 +56,8 @@ public class edhData {
 			} catch(NoSuchElementException e) {
 				System.out.println("ERROR: bad scan");
 			}
+			
+			// clear console
 		} // end of while loop
 	} // end of main method
 	

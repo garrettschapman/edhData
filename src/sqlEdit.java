@@ -20,12 +20,12 @@ class sqlEdit {
 			+ "encrypt=false;"
 			+ "trustServerCertificate=false;"
 			+ "loginTimeout=30;";
-	ResultSet resultSet = null;
-	Statement statement;
-	String sqlStatement = "";
+	private ResultSet resultSet = null;
+	private Statement statement;
+	private String sqlStatement = "";
 	
 	// information from the database
-	Object[][] playerData = new Object[0][0];
+	private Object[][] playerData = new Object[0][0];
 	
 	// constructor
 	public sqlEdit() {
