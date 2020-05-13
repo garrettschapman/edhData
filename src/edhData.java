@@ -103,7 +103,7 @@ public class edhData {
 		collect.collectData();
 		
 		// stores data from the game
-		dataStorage store = new dataStorage();
+		dataStorage store = new dataStorage(database);
 		store.storeData(collect.getPlayerData());
 		
 		System.out.println("Game data collection finished.");
@@ -139,6 +139,10 @@ public class edhData {
 		System.out.println(divider);
 	} // end of function help
 	
+	/*
+	 * function to get info about the players
+	 * opens a new menu
+	 */
 	private static void players() {
 		playerData players = new playerData(database, in);
 		players.start();

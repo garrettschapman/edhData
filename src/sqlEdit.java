@@ -26,6 +26,7 @@ class sqlEdit {
 	
 	// information from the database
 	private Object[][] playerData = new Object[0][0];
+	private Object[][] deckData = new Object[0][0];
 	
 	// constructor
 	public sqlEdit() {
@@ -41,6 +42,15 @@ class sqlEdit {
 			resultSet.next();
 			playerData = new Object[resultSet.getInt(1)][45];
 			generatePlayerData(resultSet.getInt(1));
+			
+			// deck data
+			sqlStatement = "SELECT COUNT(deckID) FROM dbo.edhDecks";
+			resultSet = statement.executeQuery(sqlStatement);
+			resultSet.next();
+			deckData = new Object[resultSet.getInt(1)][52];
+			generateDeckData(resultSet.getInt(1));
+			
+			// game data
 		} catch (SQLException e) {
 			System.out.println("ERROR: there was an error with the database.");
 			e.printStackTrace();
@@ -115,10 +125,90 @@ class sqlEdit {
 	} // end of function generatePlayerData
 	
 	/*
+	 * function to set up deck data
+	 * gets data from the database
+	 */
+	private void generateDeckData(int rows) throws SQLException {
+		sqlStatement = "SELECT TOP " + rows + " "
+				+ "deckID, "
+				+ "commander, "
+				+ "theme, "
+				+ "colors, "
+				+ "numColors, "
+				+ "totalGames, "
+				+ "funGames, "
+				+ "ehGames, "
+				+ "unfunGames, "
+				+ "totalOpponents, "
+				+ "opponentsFun, "
+				+ "opponentsEh, "
+				+ "opponentsUnfun, "
+				+ "colorsInHand, "
+				+ "manaInHand, "
+				+ "keptCMC, "
+				+ "artifactsKept, "
+				+ "creaturesKept, "
+				+ "landsKept, "
+				+ "enchantmentsKept, "
+				+ "instantsKept, "
+				+ "sorceriesKept, "
+				+ "planeswalkersKept, "
+				+ "manaKept, "
+				+ "drawKept, "
+				+ "interactionKept, "
+				+ "threatKept, "
+				+ "comboKept, "
+				+ "otherKept, "
+				+ "mulligans, "
+				+ "cardsPitched, "
+				+ "pitchedCMC, "
+				+ "artifactsPitched, "
+				+ "creaturesPitched, "
+				+ "landsPitched, "
+				+ "enchantmentsPitched, "
+				+ "instantsPitched, "
+				+ "sorceriesPitched, "
+				+ "planeswalkersPitched, "
+				+ "manaPitched, "
+				+ "drawPitched, "
+				+ "interactionPitched, "
+				+ "threatPitched, "
+				+ "comboPitched, "
+				+ "otherPitched, "
+				+ "wins, "
+				+ "aggroWins, "
+				+ "aetherfluxWins, "
+				+ "labmanWins, "
+				+ "comboWins, "
+				+ "scoopWins, "
+				+ "otherWins "
+				+ " FROM dbo.edhDecks";
+		resultSet = statement.executeQuery(sqlStatement);
+		resultSet.next();
+		
+		// for loop to fill the table
+		for (int i = 0; i < deckData.length; i++) {
+			// internal for loop to fill the current row of the table
+			for (int j = 0; j < deckData[i].length; j++) {
+				deckData[i][j] = resultSet.getObject(j+1);
+			} // end of internal for loop
+			resultSet.next();
+		} // end of for loop
+	} // end of function generateDeckData
+	
+	
+	
+	/*
 	 * function to get information from the players
 	 */
 	public Object[][] getPlayerData() {
 		return playerData;
 	} // end of function getPlayerData
-
+	
+	/*
+	 * function to get information from the decks
+	 */
+	public Object[][] getDeckData(){
+		return deckData;
+	} // end of function getDeckData
 } // end of class sqlEdit

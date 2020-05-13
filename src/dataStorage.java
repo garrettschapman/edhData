@@ -4,9 +4,11 @@
 // sends data collected by the user to the database
 
 class dataStorage {
+	private sqlEdit database;
+	
 	// constructor
-	public dataStorage() {
-		
+	public dataStorage(sqlEdit server) {
+		database = server;
 	} //end of constructor
 	
 	/*
