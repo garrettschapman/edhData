@@ -2,6 +2,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 // edhData class by Garrett Chapman
+// created 05/12/2020
 // last updated 05/13/2020
 // controls main menu and user functionality
 
@@ -11,7 +12,7 @@ public class edhData {
 	private static sqlEdit database;
 	
 	// menu text
-	public static String divider = "===========================================================================================================================================================";
+	public static final String divider = "===========================================================================================================================================================";
 	private static String[] commands = {
 			"add",
 			"exit",
@@ -138,6 +139,7 @@ public class edhData {
 	
 	private static void players() {
 		playerData players = new playerData(database, in);
+		players.start();
 		
 		System.out.println(divider);
 	}
