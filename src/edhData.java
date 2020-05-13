@@ -2,7 +2,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 // edhData class by Garrett Chapman
-// last updated 05/12/2020
+// last updated 05/13/2020
 // controls main menu and user functionality
 
 public class edhData {
@@ -132,6 +132,7 @@ public class edhData {
 		System.out.println(divider);
 		System.out.print("Press any button to continue.");
 		in.nextLine();
+		
 		System.out.println(divider);
 	} // end of function help
 	

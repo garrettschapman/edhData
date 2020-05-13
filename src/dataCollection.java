@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 // dataCollection class by Garrett Chapman
-// last updated 05/12/2020
+// last updated 05/13/2020
 // collects data from the user for edhData
 
 class dataCollection {
