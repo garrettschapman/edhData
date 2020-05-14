@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 // dataCollection class by Garrett Chapman
 // created 05/11/2020
-// last updated 05/13/2020
+// last updated 05/14/2020
 // collects data from the user for edhData
 
 class dataCollection {
@@ -52,6 +52,8 @@ class dataCollection {
 			System.out.print("Did they have fun? y/e/n: ");
 			validateText(i, 5, user.nextLine(), yen);
 			
+			System.out.println(edhData.divider);
+			
 			// opening hand info
 			System.out.print("Colors in opening hand: ");
 			validateNum(i, 6, user.nextLine());
@@ -61,6 +63,8 @@ class dataCollection {
 			
 			System.out.print("Total CMC of opening hand: ");
 			validateNum(i, 8, user.nextLine());
+			
+			System.out.println(edhData.divider);
 			
 			// card types
 			System.out.print("Number of artifacts kept: ");
@@ -84,6 +88,8 @@ class dataCollection {
 			System.out.print("Number of planeswalkers kept: ");
 			validateNum(i, 15, user.nextLine());
 			
+			System.out.println(edhData.divider);
+			
 			// card themes
 			System.out.print("Number of mana cards kept: ");
 			validateNum(i, 16, user.nextLine());
@@ -103,6 +109,8 @@ class dataCollection {
 			System.out.print("Number of other cards kept: ");
 			validateNum(i, 21, user.nextLine());
 			
+			System.out.println(edhData.divider);
+			
 			// mulligan info
 			System.out.print("Number of mulligans: ");
 			validateNum(i, 22, user.nextLine());
@@ -117,6 +125,8 @@ class dataCollection {
 				if (pitched > 0) {
 					System.out.print("Total CMC of cards pitched: ");
 					validateNum(i, 24, user.nextLine());
+					
+					System.out.println(edhData.divider);
 					
 					// card types
 					System.out.print("Number of artifacts pitched: ");
@@ -139,6 +149,8 @@ class dataCollection {
 					
 					System.out.print("Number of planeswalkers pitched: ");
 					validateNum(i, 31, user.nextLine());
+					
+					System.out.println(edhData.divider);
 					
 					// card themes
 					System.out.print("Number of mana cards pitched: ");
@@ -170,6 +182,8 @@ class dataCollection {
 					playerData[i][j] = "0";
 				} // end of for loop
 			} // end of checks
+			
+			System.out.println(edhData.divider);
 		
 			System.out.print("Did they scoop? y/n: ");
 			validateText(i, 38, user.nextLine(), yn);

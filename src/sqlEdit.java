@@ -238,9 +238,12 @@ class sqlEdit {
 		} // end of for loop
 	} // end of function readGameData
 	
-	// functions to write to the database
-	
-	
+	/*
+	 * function to write data to the database
+	 */
+	public void write() {
+		//TODO this
+	} // end of function write
 	
 	// getters
 	
@@ -251,7 +254,6 @@ class sqlEdit {
 		return playerData;
 	} // end of function getPlayerData
 	
-	
 	/*
 	 * function to get information from the decks
 	 */
@@ -259,11 +261,33 @@ class sqlEdit {
 		return deckData;
 	} // end of function getDeckData
 	
-	
 	/*
 	 * function to get information about games (player/deck combinations)
 	 */
 	public Object[][] getGameData(){
 		return gameData;
-	} // end of function getGameData} // end of class sqlEdit
-}
+	} // end of function getGameData
+	
+	// setters
+	
+	/*
+	 * function to set player information
+	 */
+	public void setPlayerData(Object[][] newPlayers) {
+		playerData = newPlayers;
+	} // end of function setPlayerData
+	
+	/*
+	 * function to set deck information
+	 */
+	public void setDeckData(Object[][] newDecks) {
+		deckData = newDecks;
+	} // end of function setDeckData
+	
+	/*
+	 * function to set game information
+	 */
+	public void setGameData(Object[][] newGames) {
+		gameData = newGames;
+	} // end of function setGameData
+} // end of class sqlEdit
