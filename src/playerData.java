@@ -257,6 +257,7 @@ class playerData {
 	
 	/*
 	 * displays the player help menu
+	 * called by help command
 	 */
 	private void playerHelp() {
 		System.out.println(edhData.divider);
@@ -288,6 +289,7 @@ class playerData {
 	
 	/*
 	 * function to list all known players
+	 * called by list command
 	 */
 	private void getPlayerList() {
 		System.out.println(edhData.divider);
@@ -306,6 +308,7 @@ class playerData {
 	
 	/*
 	 * function to list sorting categories
+	 * called by categories command
 	 */
 	private void categoryList() {
 		System.out.println(edhData.divider);
@@ -320,6 +323,8 @@ class playerData {
 	
 	/*
 	 * function to sort players by a category
+	 * asks the user which category to sort by
+	 * called by sort command
 	 */
 	private void sortPlayers() {
 		categoryList();
@@ -380,11 +385,12 @@ class playerData {
 	/*
 	 * function to get the top players
 	 * asks the user for the number of players to show
+	 * called by high command
 	 */
 	private void getTopPlayers() {
 		System.out.println(edhData.divider);
 		
-		if(sortColumn == 0) {
+		if(sortColumn == 0) { // does not list if they are not sorted
 			System.out.println("Please sort the players first using the sort command.");
 			System.out.println(edhData.divider);
 			return;
@@ -419,6 +425,7 @@ class playerData {
 	/*
 	 * function to get the bottom players
 	 * asks the user for the number of players to show
+	 * called by low command
 	 */
 	private void getBottomPlayers() {
 		System.out.println(edhData.divider);
