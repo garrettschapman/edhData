@@ -11,6 +11,10 @@ class dataCollection {
 	// variables
 	private String[][] playerData; // array to hold info about the player
 	private int numPlayers; //number of players
+	private String[] colors = {"White", "Blue", "Black", "Red", "Green", "Colorless", 
+			"Azorius", "Dimir", "Rakdos", "Gruul", "Selesnya", "Orzhov", "Izzet", "Golgari", "Boros", "Simic",
+			"Esper", "Grixis", "Jund", "Naya", "Bant", "Abzan", "Jeskai", "Sultai", "Mardu", "Temur",
+			"Yore-Tiller", "Glint-Eye", "Dune-Brood", "Ink-Treader", "Witch-Maw", "WUBRG"};
 	private String[] yn = {"y", "n"};
 	private String[] yen = {"y", "e", "n"};
 	private String[] winCons = {"aggro", "aether", "labman", "combo", "scoops", "other"};
@@ -35,16 +39,16 @@ class dataCollection {
 			
 			// begin questions
 			System.out.print("Name: ");
-			playerData[i][0] = user.nextLine();
+			playerData[i][0] = fixString(user.nextLine());
 			
 			System.out.print("Commander: ");
-			playerData[i][1] = user.nextLine();
+			playerData[i][1] = fixString(user.nextLine());
 			
 			System.out.print("Theme: ");
-			playerData[i][2] = user.nextLine();
+			playerData[i][2] = fixString(user.nextLine());
 			
 			System.out.print("Color identity: ");
-			playerData[i][3] = user.nextLine();
+			validateText(i, 3, user.nextLine(), colors);
 			
 			System.out.print("Number of colors: ");
 			validateNum(i, 4, user.nextLine());
@@ -265,6 +269,15 @@ class dataCollection {
 			} //end of check
 		} // end of while loop
 	} // end of method validateNum
+	
+	/*
+	 * function to remove apostrophes
+	 * SQL does not like having apostrophes written to it
+	 */
+	private String fixString(String input) {
+		input = input.replace("'", "");
+		return input;
+	} // end of function fixString
 	
 	/*
 	 * getter for playerData

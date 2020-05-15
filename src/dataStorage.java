@@ -31,15 +31,20 @@ class dataStorage {
 	 */
 	public void storeData(String[][] data) {
 		winner = new Object[45];
+		winner[0] = 0;
+		winner[1] = "Game Winner";
+		for(int i = 2; i < winner.length; i++) {
+			winner[i] = 0;
+		}
 		
 		makeNewPlayers(data);
 		makeNewDecks(data);
 		makeNewGames(data);
 		
+		updatePlayer(0, winner);
+		
 		// for loop to add everything to the current arrays
 		for(int i = 0; i < data.length; i++) {
-			updatePlayer(0, winner);
-			
 			int playerID = findPlayerID(newPlayers[i]);
 			newPlayers[i][0] = playerID;
 			updatePlayer(playerID, newPlayers[i]);
@@ -57,8 +62,6 @@ class dataStorage {
 		database.setPlayerData(currentPlayers);
 		database.setDeckData(currentDecks);
 		database.setGameData(currentGames);
-		
-		database.write();
 	} // end of function storeData
 	
 	// make arrays
@@ -79,14 +82,17 @@ class dataStorage {
 				newPlayers[i][3] = 1;
 				newPlayers[i][4] = 0;
 				newPlayers[i][5] = 0;
+				break;
 			case "e":
 				newPlayers[i][3] = 0;
 				newPlayers[i][4] = 1;
 				newPlayers[i][5] = 0;
+				break;
 			case "n":
 				newPlayers[i][3] = 0;
 				newPlayers[i][4] = 0;
 				newPlayers[i][5] = 1;
+				break;
 			}
 			
 			newPlayers[i][6] = (i+1);		// player number
@@ -94,8 +100,10 @@ class dataStorage {
 			switch(data[i][38]) {			// scoop?
 			case "y":
 				newPlayers[i][7] = 1;
+				break;
 			case "n":
 				newPlayers[i][7] = 0;
+				break;
 			}
 			
 			/*
@@ -169,7 +177,6 @@ class dataStorage {
 				newPlayers[i][42] = 0;
 				newPlayers[i][43] = 0;
 				newPlayers[i][44] = 0;
-				
 			}
 			
 			switch(data[i][39].toString()) {			// did they win? (comes after so we can set the winner)
@@ -184,6 +191,7 @@ class dataStorage {
 				break;
 			case "n":
 				newPlayers[i][38] = 0;
+				break;
 			}
 		} // end of external for loop
 	} // end of function makeNewPlayers
@@ -207,17 +215,20 @@ class dataStorage {
 				newDecks[i][6] = 1;
 				newDecks[i][7] = 0;
 				newDecks[i][8] = 0;
+				break;
 			case "e":
 				newDecks[i][6] = 0;
 				newDecks[i][7] = 1;
 				newDecks[i][8] = 0;
+				break;
 			case "n":
 				newDecks[i][6] = 0;
 				newDecks[i][7] = 0;
 				newDecks[i][8] = 1;
+				break;
 			}
 			
-			newDecks[i][9] = data.length;	// number of opponents
+			newDecks[i][9] = data.length-1;	// number of opponents
 			
 			// variables for keeping track of opponents' fun
 			int fun = 0;
@@ -227,13 +238,16 @@ class dataStorage {
 			// internal for loop to determine opponents' fun
 			for(int j = 0; j < data.length; j++) {
 				if(i != j) { // does not treat this deck as one of its opponents
-					switch(data[j][3].toString()) {
+					switch(data[j][5].toString()) {
 					case "y":
 						fun++;
+						break;
 					case "e":
 						eh++;
+						break;
 					case "n":
 						unfun++;
+						break;
 					}
 				}
 			} // end of internal for loop
@@ -262,8 +276,10 @@ class dataStorage {
 			switch(data[i][39].toString()) {			// did they win?
 			case "y":
 				newDecks[i][45] = 1;
+				break;
 			case "n":
 				newDecks[i][45] = 0;
+				break;
 			}
 			
 			switch(data[i][40].toString()) {			// how did they win?
@@ -342,21 +358,26 @@ class dataStorage {
 				newGames[i][4] = 1;
 				newGames[i][5] = 0;
 				newGames[i][6] = 0;
+				break;
 			case "e":
 				newGames[i][4] = 0;
 				newGames[i][5] = 1;
 				newGames[i][6] = 0;
+				break;
 			case "n":
 				newGames[i][4] = 0;
 				newGames[i][5] = 0;
 				newGames[i][6] = 1;
+				break;
 			}
 			
 			switch(data[i][39].toString()) {			// did they win?
 			case "y":
 				newGames[i][7] = 1;
+				break;
 			case "n":
 				newGames[i][7] = 0;
+				break;
 			}
 			
 			switch(data[i][40].toString()) {			// how did they win?
@@ -426,10 +447,14 @@ class dataStorage {
 	 * returns the playerID
 	 */
 	private int findPlayerID(Object[] player) {
+		String newPlayer = player[1].toString().replaceAll("\\P{Print}", "").trim();
+		
 		// for loop to find which player needs to be updated
 		for(int i = 0; i < currentPlayers.length; i++) {
+			String check = currentPlayers[i][1].toString().replaceAll("\\P{Print}", "").trim();
+			
 			// the player must have the same name
-			if(player[1].toString().equals(currentPlayers[i][1].toString())) {
+			if((newPlayer.equals(check))) {
 				return i;
 			}
 		} // end of for loop
@@ -443,16 +468,22 @@ class dataStorage {
 	 * returns the deckID
 	 */
 	private int findDeckID(Object[] deck) {
+		String newDeckName = deck[1].toString().replaceAll("\\P{Print}", "").trim();
+		String newDeckTheme = deck[2].toString().replaceAll("\\P{Print}", "").trim();
+		
 		// for loop to find which deck needs to be updated
 		for(int i = 0; i < currentDecks.length; i++) {
+			String checkName = currentDecks[i][1].toString().replaceAll("\\P{Print}", "").trim();
+			String checkTheme = currentDecks[i][2].toString().replaceAll("\\P{Print}", "").trim();
+			
 			// the deck must have the same commander and theme
-			if((deck[1].toString().equals(currentDecks[i][1].toString())) && (deck[2].toString().equals(currentDecks[i][2].toString()))) {
-				return i;
+			if(((newDeckName).equals(checkName)) && ((newDeckTheme).equals(checkTheme))) {
+				return i+1;
 			}
 		} // end of for loop
 		
 		// deck will be added to the bottom of the table
-		return currentDecks.length;
+		return currentDecks.length+1;
 	} // end of function findDeckID
 	
 	/*
