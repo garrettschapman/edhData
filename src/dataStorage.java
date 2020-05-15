@@ -525,12 +525,12 @@ class dataStorage {
 	 * adds a new deck if the deckID is not known
 	 */
 	private void updateDeck(int id, Object[] deck) {
-		if (id >= currentDecks.length) {
+		if (id-1 >= currentDecks.length) {
 			currentDecks = addNew(id, currentDecks, deck);
 		} else {
 			// for loop to update the deck's row
 			for(int i = 5; i < 52; i++) {
-				currentDecks[id][i] = Integer.parseInt((currentDecks[id][i].toString())) + Integer.parseInt(deck[i].toString());
+				currentDecks[id-1][i] = Integer.parseInt((currentDecks[id-1][i].toString())) + Integer.parseInt(deck[i].toString());
 			} // end of for loop
 		}
 	} // end of function updateDeck
