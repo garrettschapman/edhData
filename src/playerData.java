@@ -19,7 +19,7 @@ class playerData {
 	private String columnName = "ID";
 	
 	// menu stuff
-	String[] commands = {
+	private String[] commands = {
 		"back",
 		"categories",
 		"exit",
@@ -29,7 +29,7 @@ class playerData {
 		"low",
 		"sort"
 	};
-	String[] categories = {
+	private String[] categories = {
 		"cmc",
 		"fun",
 		"games",
@@ -85,10 +85,11 @@ class playerData {
 					break;
 				default:
 					System.out.println(edhData.divider);
-					System.out.println("ERROR: unknown command.");
+					System.out.println("Unknown command.");
 				}
 			} catch(NoSuchElementException e) {
 				System.out.println("ERROR: bad scan");
+				System.exit(0);
 			}
 			
 			// clear console
@@ -169,9 +170,10 @@ class playerData {
 				// actual players
 				playerList[i-1][0] = rawData[i][0]; // player ID
 				
-				playerList[i-1][1] = rawData[i][1];			// player name
-				playerList[i-1][2] = getRatio(i, 6, 2);		// average player number
-				playerList[i-1][3] = rawData[i][2];			// total games played
+				playerList[i-1][1] = rawData[i][1];		// player name
+				playerList[i-1][2] = getRatio(i, 6, 2);	// average player number
+				playerList[i-1][3] = rawData[i][2];		// total games played
+				
 				playerList[i-1][4] = getRatio(i, 3, 2)*100;	// percent of fun games
 				playerList[i-1][5] = getRatio(i, 4, 2)*100;	// percent of eh games
 				playerList[i-1][6] = getRatio(i, 5, 2)*100;	// percent of unfun games
@@ -183,8 +185,9 @@ class playerData {
 				} // end of for loop to determine the total number of cards kept
 				
 				// stuff about cards kept in hand
-				playerList[i-1][7] = (double)keptCards / (double)Integer.parseInt(rawData[i][2].toString()); 				// average starting hand size
+				playerList[i-1][7] = (double)keptCards / (double)Integer.parseInt(rawData[i][2].toString()); 			// average starting hand size
 				playerList[i-1][8] = getRatioComplex(i, 8, (keptCards - Integer.parseInt(rawData[i][11].toString())));	// average CMC of cards kept in hand
+				
 				playerList[i-1][9] = getRatioComplex(i, 9, keptCards)*100;		// percent of artifacts kept
 				playerList[i-1][10] = getRatioComplex(i, 10, keptCards)*100;	// percent of creatures kept
 				playerList[i-1][11] = getRatioComplex(i, 11, keptCards)*100;	// percent of lands kept
@@ -192,6 +195,7 @@ class playerData {
 				playerList[i-1][13] = getRatioComplex(i, 13, keptCards)*100;	// percent of instants kept
 				playerList[i-1][14] = getRatioComplex(i, 14, keptCards)*100;	// percent of sorceries kept
 				playerList[i-1][15] = getRatioComplex(i, 15, keptCards)*100;	// percent of planeswalkers kept
+				
 				playerList[i-1][16] = getRatioComplex(i, 16, keptCards)*100;	// percent of mana cards kept
 				playerList[i-1][17] = getRatioComplex(i, 17, keptCards)*100;	// percent of draw cards kept
 				playerList[i-1][18] = getRatioComplex(i, 18, keptCards)*100;	// percent of interaction cards kept
@@ -200,9 +204,10 @@ class playerData {
 				playerList[i-1][21] = getRatioComplex(i, 21, keptCards)*100;	// percent of other cards kept
 				
 				// stuff about mulligans
-				playerList[i-1][22] = getRatio(i, 22, 2);		// average mulligans
-				playerList[i-1][23] = getRatio(i, 23, 2);		// average number of cards pitched
+				playerList[i-1][22] = getRatio(i, 22, 2);	// average mulligans per game
+				playerList[i-1][23] = getRatio(i, 23, 2);	// average number of cards pitched per game
 				playerList[i-1][24] = getRatioComplex(i, 24, (Integer.parseInt(rawData[i][23].toString()) - Integer.parseInt(rawData[i][27].toString()))); // average CMC of cards pitched
+				
 				playerList[i-1][25] = getRatio(i, 25, 23)*100;	// percent of artifacts pitched
 				playerList[i-1][26] = getRatio(i, 26, 23)*100;	// percent of creatures pitched
 				playerList[i-1][27] = getRatio(i, 27, 23)*100;	// percent of lands pitched
@@ -210,6 +215,7 @@ class playerData {
 				playerList[i-1][29] = getRatio(i, 29, 23)*100;	// percent of instants pitched
 				playerList[i-1][30] = getRatio(i, 30, 23)*100;	// percent of sorceries pitched
 				playerList[i-1][31] = getRatio(i, 31, 23)*100;	// percent of planeswalkers pitched
+				
 				playerList[i-1][32] = getRatio(i, 32, 23)*100;	// percent of mana cards pitched
 				playerList[i-1][33] = getRatio(i, 33, 23)*100;	// percent of draw cards pitched
 				playerList[i-1][34] = getRatio(i, 34, 23)*100;	// percent of interaction cards pitched
@@ -242,18 +248,19 @@ class playerData {
 	} // end of function playerMenu
 	
 	/*
-	 * function to print player commands
-	 * separated from main menu function because it will be printed again for incorrect input and after a command
+	 * function to list sorting categories
+	 * called by categories command
 	 */
-	private void playerCommands() {
-		System.out.println("Known commands:");
+	private void categoryList() {
+		System.out.println(edhData.divider);
+		System.out.println("Categories:");
 		// for loop to add in commands
-		for (int i = 0; i < commands.length; i++) {
-			System.out.print("     " + commands[i]);
+		for (int i = 0; i < categories.length; i++) {
+			System.out.print("     " + categories[i]);
 		} // end of for loop
 		System.out.println();
-		System.out.println();
-	} // end of function playerCommands
+		System.out.println(edhData.divider);
+	} // end of function categoryList
 	
 	/*
 	 * displays the player help menu
@@ -288,6 +295,46 @@ class playerData {
 	} // end of function playerHelp
 	
 	/*
+	 * function to get the top players
+	 * asks the user for the number of players to show
+	 * called by high command
+	 */
+	private void getTopPlayers() {
+		System.out.println(edhData.divider);
+		
+		if(sortColumn == 0) { // does not list if they are not sorted
+			System.out.println("Please sort the players first using the sort command.");
+			System.out.println(edhData.divider);
+			return;
+		}
+		
+		System.out.print("Please enter a number: ");
+		String input = user.nextLine();
+		int number;
+		
+		// loop to validate input
+		loop: while(true) {
+			try {
+				number = Integer.parseInt(input);
+				break loop;
+			} catch (NumberFormatException e) {
+				System.out.print("");
+				input = user.nextLine();
+			}
+		} // end of while loop
+		
+		if(number > playerList.length) {
+			number = playerList.length;
+		}
+		
+		if (sortColumn == 2) {
+			printFirstPlayers(number);
+		} else {
+			printLastPlayers(number);
+		}
+	} // end of function getTopPlayers
+	
+	/*
 	 * function to list all known players
 	 * called by list command
 	 */
@@ -298,7 +345,7 @@ class playerData {
 		System.out.println("Players in the database:");
 		// for loop to print each player
 		for(int i = 0; i < playerList.length; i++) {
-			System.out.print("     " + playerList[i][1]);
+			System.out.println("     " + playerList[i][1]);
 		} // end of for loop
 		System.out.println();
 		
@@ -307,19 +354,44 @@ class playerData {
 	} // end of function getPlayerList
 	
 	/*
-	 * function to list sorting categories
-	 * called by categories command
+	 * function to get the bottom players
+	 * asks the user for the number of players to show
+	 * called by low command
 	 */
-	private void categoryList() {
+	private void getBottomPlayers() {
 		System.out.println(edhData.divider);
-		System.out.println("Categories:");
-		// for loop to add in commands
-		for (int i = 0; i < categories.length; i++) {
-			System.out.print("     " + categories[i]);
-		} // end of for loop
-		System.out.println();
-		System.out.println(edhData.divider);
-	} // end of function categoryList
+		
+		if(sortColumn == 0) {
+			System.out.println("Please sort the players first using the sort command.");
+			System.out.println(edhData.divider);
+			return;
+		}
+		
+		System.out.print("Please enter a number: ");
+		String input = user.nextLine();
+		int number;
+		
+		// loop to validate input
+		loop: while(true) {
+			try {
+				number = Integer.parseInt(input);
+				break loop;
+			} catch (NumberFormatException e) {
+				System.out.print("");
+				input = user.nextLine();
+			}
+		} // end of while loop
+		
+		if(number > playerList.length) {
+			number = playerList.length;
+		}
+		
+		if (sortColumn == 2) {
+			printLastPlayers(number);
+		} else {
+			printFirstPlayers(number);
+		}
+	} // end of function getBottomPlayers
 	
 	/*
 	 * function to sort players by a category
@@ -375,92 +447,44 @@ class playerData {
 			break;
 		default:
 			System.out.println();
-			System.out.println("ERROR: unknown category.");
+			System.out.println("Unknown category.");
 		}
 		
 		arraySort.sort(playerList, sortColumn);
 		System.out.println(edhData.divider);
 	} // end of function sortPlayers
 	
-	/*
-	 * function to get the top players
-	 * asks the user for the number of players to show
-	 * called by high command
-	 */
-	private void getTopPlayers() {
-		System.out.println(edhData.divider);
-		
-		if(sortColumn == 0) { // does not list if they are not sorted
-			System.out.println("Please sort the players first using the sort command.");
-			System.out.println(edhData.divider);
-			return;
-		}
-		
-		System.out.print("Please enter a number: ");
-		String input = user.nextLine();
-		int number;
-		
-		// loop to validate input
-		loop: while(true) {
-			try {
-				number = Integer.parseInt(input);
-				break loop;
-			} catch (NumberFormatException e) {
-				System.out.print("");
-				input = user.nextLine();
-			}
-		} // end of while loop
-		
-		if(number > playerList.length) {
-			number = playerList.length;
-		}
-		
-		if (sortColumn == 2) {
-			printFirstPlayers(number);
-		} else {
-			printLastPlayers(number);
-		}
-	} // end of function getTopPlayers
+	// functions called by other functions
 	
 	/*
-	 * function to get the bottom players
-	 * asks the user for the number of players to show
-	 * called by low command
+	 * function to get a ratio for the data table
+	 * only takes data points from the raw data
 	 */
-	private void getBottomPlayers() {
-		System.out.println(edhData.divider);
-		
-		if(sortColumn == 0) {
-			System.out.println("Please sort the players first using the sort command.");
-			System.out.println(edhData.divider);
-			return;
-		}
-		
-		System.out.print("Please enter a number: ");
-		String input = user.nextLine();
-		int number;
-		
-		// loop to validate input
-		loop: while(true) {
-			try {
-				number = Integer.parseInt(input);
-				break loop;
-			} catch (NumberFormatException e) {
-				System.out.print("");
-				input = user.nextLine();
-			}
-		} // end of while loop
-		
-		if(number > playerList.length) {
-			number = playerList.length;
-		}
-		
-		if (sortColumn == 2) {
-			printLastPlayers(number);
-		} else {
-			printFirstPlayers(number);
-		}
-	} // end of function getBottomPlayers
+	private double getRatio(int i, int j, int k) {
+		return (double)Integer.parseInt(rawData[i][j].toString()) / (double)Integer.parseInt(rawData[i][k].toString());
+	} // end of function getRatio
+	
+	/*
+	 * function to get a ratio for the data table
+	 * uses values other than raw data
+	 */
+	private double getRatioComplex(int i, int j, int divisor) {
+		return (double)Integer.parseInt(rawData[i][j].toString()) / (double)divisor;
+	} // end of function getRatioComplex
+	
+	/*
+	 * function to print player commands
+	 * separated from main menu function because it will be printed again for incorrect input and after a command
+	 */
+	private void playerCommands() {
+		System.out.println("Known commands:");
+		// for loop to add in commands
+		for (int i = 0; i < commands.length; i++) {
+			System.out.print("     " + commands[i]);
+		} // end of for loop
+		System.out.println();
+		System.out.println();
+	} // end of function playerCommands
 	
 	/*
 	 * function to print the first X players where X is the number selected by the user
@@ -471,13 +495,14 @@ class playerData {
 		System.out.format("%-15s", "Player");
 		System.out.print("|" + columnName);
 		System.out.println();
-		System.out.println("---------------|--------------------------");
+		System.out.println("===============|==========================");
 		
 		// for loop to print each player's information
 		for(int i = 0; i < number; i++) {
-			System.out.format("%-15s", playerList[i][1].toString());
+			System.out.format("%15s", playerList[i][1].toString());
 			System.out.print("|" + playerList[i][sortColumn].toString());
 			System.out.println();
+			System.out.println("---------------|--------------------------");
 		} // end of for loop
 		
 		System.out.println();
@@ -497,13 +522,14 @@ class playerData {
 		System.out.format("%-15s", "Player");
 		System.out.print("|" + columnName);
 		System.out.println();
-		System.out.println("---------------|--------------------------");
+		System.out.println("===============|==========================");
 		
 		// for loop to print each player's information
 		for(int i = 1; i <= number; i++) {
 			System.out.format("%-15s", playerList[playerList.length-i][1].toString());
 			System.out.print("|" + playerList[playerList.length-i][sortColumn].toString());
 			System.out.println();
+			System.out.println("---------------|--------------------------");
 		} // end of for loop
 		
 		System.out.println();
@@ -513,20 +539,4 @@ class playerData {
 		
 		System.out.println(edhData.divider);
 	} // end of function printLastPlayers
-	
-	/*
-	 * function to get a ratio for the data table
-	 * only takes data points from the raw data
-	 */
-	private double getRatio(int i, int j, int k) {
-		return (double)Integer.parseInt(rawData[i][j].toString()) / (double)Integer.parseInt(rawData[i][k].toString());
-	} // end of function getRatio
-	
-	/*
-	 * function to get a ratio for the data table
-	 * uses values other than raw data
-	 */
-	private double getRatioComplex(int i, int j, int divisor) {
-		return (double)Integer.parseInt(rawData[i][j].toString()) / (double)divisor;
-	} // end of function getRatioComplex
 } // end of class playerData

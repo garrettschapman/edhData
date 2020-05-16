@@ -15,6 +15,7 @@ public class edhData {
 	public static final String divider = "=============================================================================================================================================================================================================================================================================================================================";
 	private static String[] commands = {
 			"add",
+			"decks",
 			"exit",
 			"help",
 			"players"
@@ -37,6 +38,9 @@ public class edhData {
 				case "add":
 					add();
 					break;
+				case "decks":
+					decks();
+					break;
 				case "exit":
 					System.out.println(divider);
 					System.out.println("Program closing.  Thank you.");
@@ -51,10 +55,11 @@ public class edhData {
 					break;
 				default:
 					System.out.println(divider);
-					System.out.println("ERROR: unknown command.");
+					System.out.println("Unknown command.");
 				}
 			} catch(NoSuchElementException e) {
 				System.out.println("ERROR: bad scan");
+				System.exit(0);
 			}
 			
 			// clear console
@@ -114,6 +119,18 @@ public class edhData {
 	} //end of function add
 	
 	/*
+	 * function to get info about the decks
+	 * opens a new menu
+	 * called by decks command
+	 */
+	private static void decks() {
+		deckData decks = new deckData(database, in);
+		decks.start();
+		
+		System.out.println(divider);
+	} // end of function players
+	
+	/*
 	 * function to display help menu
 	 * called by help command
 	 */
@@ -124,6 +141,8 @@ public class edhData {
 		System.out.println("add");
 		System.out.println("     Adds game data to the database.  Takes the number of players and information about each player in the game.");
 		System.out.println();
+		System.out.println("decks");
+		System.out.println("     Opens the menu for decks.");
 		System.out.println("exit");
 		System.out.println("     Quits the program.");
 		System.out.println();
@@ -150,5 +169,5 @@ public class edhData {
 		players.start();
 		
 		System.out.println(divider);
-	}
+	} // end of function players
 } //end of class edhData
