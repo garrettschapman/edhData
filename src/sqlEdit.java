@@ -55,7 +55,7 @@ class sqlEdit {
 			resultSet = statement.executeQuery(sqlStatement);
 			resultSet.next();
 			numDecks = resultSet.getInt(1);
-			deckData = new Object[numDecks][52];
+			deckData = new Object[numDecks][53];
 			readDeckData(numDecks);
 			
 			// game data
@@ -197,7 +197,8 @@ class sqlEdit {
 				+ "labmanWins, "
 				+ "comboWins, "
 				+ "scoopWins, "
-				+ "otherWins "
+				+ "otherWins, "
+				+ "relevant "
 				+ " FROM dbo.edhDecks ORDER BY deckID, totalGames";
 		resultSet = statement.executeQuery(sqlStatement);
 		resultSet.next();
@@ -425,7 +426,8 @@ class sqlEdit {
 					+ "labmanWins, "
 					+ "comboWins, "
 					+ "scoopWins, "
-					+ "otherWins"
+					+ "otherWins, "
+					+ "relevant"
 					+ ") VALUES ("
 					+ deckData[i][0] + ", "
 					+ "'" + deckData[i][1] + "', "
@@ -478,7 +480,8 @@ class sqlEdit {
 					+ deckData[i][48] + ", "
 					+ deckData[i][49] + ", "
 					+ deckData[i][50] + ", "
-					+ deckData[i][51] +");";
+					+ deckData[i][51] + ", "
+					+ deckData[i][52] + ");";
 					
 			newRow(insertStatement);
 		} // end of for loop

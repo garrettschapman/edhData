@@ -23,9 +23,12 @@ class deckData {
 			"categories",
 			"exit",
 			"help",
+			"hide",
 			"high",
 			"list",
+			"minimum",
 			"low",
+			"show",
 			"sort"
 	};
 	private String[] categories = {
@@ -36,6 +39,8 @@ class deckData {
 			"opponents",
 			"wins"
 	};
+	private boolean showAllDecks = false;
+	private int minimumGames = 5;
 	
 	// constructor
 	public deckData(sqlEdit server, Scanner in) {
@@ -69,6 +74,8 @@ class deckData {
 				case "help":
 					deckHelp();
 					break;
+				case "hide":
+					showAllDecks = false;
 				case "high":
 					getTopDecks();
 					break;
@@ -77,6 +84,12 @@ class deckData {
 					break;
 				case "low":
 					getBottomDecks();
+					break;
+				case "minimum":
+					setMinimumGames();
+					break;
+				case "show":
+					showAllDecks = true;
 					break;
 				case "sort":
 					sortDecks();
@@ -97,7 +110,7 @@ class deckData {
 	 */
 	private void makeDeckList() {
 		rawData = database.getDeckData();
-		deckList = new Object[rawData.length][51];
+		deckList = new Object[rawData.length][52];
 		
 		// for loop to turn raw data into data that can be displayed
 		for (int i = 0; i < deckList.length; i++) {
@@ -172,6 +185,8 @@ class deckData {
 			deckList[i][48] = getRatio(i, 49, 45)*100;	// percent of other combo wins
 			deckList[i][49] = getRatio(i, 50, 45)*100;	// percent of wins via opponents scooping
 			deckList[i][50] = getRatio(i, 51, 45)*100;	// percent of other wins
+			
+			deckList[i][51] = rawData[i][52];	// relevancy
 		} // end of for loop
 	} // end of function makeDeckList
 	
@@ -217,12 +232,18 @@ class deckData {
 		System.out.println("     Quits the program.");
 		System.out.println("help");
 		System.out.println("     Displays the help menu.");
+		System.out.println("hide");
+		System.out.println("     Tells the database to hide decks that are no longer in the meta or do not have the minimum number of games.");
 		System.out.println("high");
 		System.out.println("     Asks for a number and lists that many top decks in the current category.");
 		System.out.println("list");
 		System.out.println("     Lists all decks in the database and their themes.");
 		System.out.println("low");
 		System.out.println("     Asks for a number and lists that many bottom decks in the current category.");
+		System.out.println("minimum");
+		System.out.println("     Asks for a number and sets the minimum number of games for a deck to be shown.");
+		System.out.println("show");
+		System.out.println("     Tells the program to show all decks, even decks that are no longer in the meta or decks that do not have the minimum number of games.");
 		System.out.println("sort");
 		System.out.println("     Asks for a category and sorts all decks in the database by that category.");
 		System.out.println();
@@ -262,7 +283,7 @@ class deckData {
 			}
 		} // end of while loop
 		
-		if(number > deckList.length) {
+		if(number >= deckList.length) {
 			number = deckList.length;
 		}
 		
@@ -271,17 +292,23 @@ class deckData {
 		System.out.format("%-60s", "Decks");
 		System.out.print("|" + columnName);
 		System.out.println();
-		System.out.println("============================================================|==============================");
+		System.out.println("============================================================|==============================================");
 		
-		// for loop to print each player's information
+		// for loop to print each deck's information
 		for(int i = 1; i <= number; i++) {
-			System.out.format("%-60s", deckList[deckList.length-i][1].toString());
-			System.out.print("|" + deckList[deckList.length-i][sortColumn].toString());
-			System.out.println();
-			System.out.format("%-60s", deckList[deckList.length-i][2].toString());
-			System.out.print("|");
-			System.out.println();
-			System.out.println("------------------------------------------------------------|------------------------------");
+			if((Integer.parseInt(deckList[deckList.length - i][51].toString()) == 1 && Integer.parseInt(deckList[deckList.length - i][4].toString()) >= minimumGames) || showAllDecks) {	// only show if relevant or more than one game unless specifically told otherwise
+				System.out.format("%-60s", deckList[deckList.length-i][1].toString());
+				System.out.print("|" + deckList[deckList.length-i][sortColumn].toString());
+				System.out.println();
+				System.out.format("%-60s", deckList[deckList.length-i][2].toString());
+				System.out.print("|");
+				System.out.println();
+				System.out.println("------------------------------------------------------------|----------------------------------------------");
+			} else {
+				if(number < deckList.length) {
+					number++;
+				}
+			}
 		} // end of for loop
 		
 		System.out.println();
@@ -301,9 +328,11 @@ class deckData {
 		arraySort.sort(deckList, 0);
 		
 		System.out.println("Decks in the database:");
-		// for loop to print each player
+		// for loop to print each deck
 		for(int i = 0; i < deckList.length; i++) {
-			System.out.println("     " + deckList[i][1].toString().trim() + " - " + deckList[i][2]);
+			if(((Integer.parseInt(deckList[i][51].toString()) == 1 && Integer.parseInt(deckList[i][4].toString()) >= minimumGames) || showAllDecks)) {	// only show if relevant or more than one game unless specifically told otherwise
+				System.out.println("     " + deckList[i][1].toString().trim() + " - " + deckList[i][2]);
+			}
 		} // end of for loop
 		
 		arraySort.sort(deckList, sortColumn);
@@ -348,17 +377,23 @@ class deckData {
 		System.out.format("%-60s", "Deck");
 		System.out.print("|" + columnName);
 		System.out.println();
-		System.out.println("============================================================|==============================");
+		System.out.println("============================================================|==============================================");
 		
 		// for loop to print each deck's information
 		for(int i = 0; i < number; i++) {
-			System.out.format("%-60s", deckList[i][1].toString());
-			System.out.print("|" + deckList[i][sortColumn].toString());
-			System.out.println();
-			System.out.format("%-60s", deckList[i][2].toString());
-			System.out.print("|");
-			System.out.println();
-			System.out.println("------------------------------------------------------------|------------------------------");
+			if(((Integer.parseInt(deckList[i][51].toString()) == 1 && Integer.parseInt(deckList[i][4].toString()) >= minimumGames) || showAllDecks)) {	// only show if relevant or more than one game unless specifically told otherwise
+				System.out.format("%-60s", deckList[i][1].toString());
+				System.out.print("|" + deckList[i][sortColumn].toString());
+				System.out.println();
+				System.out.format("%-60s", deckList[i][2].toString());
+				System.out.print("|");
+				System.out.println();
+				System.out.println("------------------------------------------------------------|----------------------------------------------");
+			} else {
+				if(number < deckList.length) {
+					number++;
+				}
+			}
 		} // end of for loop
 		
 		System.out.println();
@@ -368,6 +403,29 @@ class deckData {
 		
 		System.out.println(edhData.divider);
 	} // end of function getBottomDecks
+	
+	/*
+	 * function to set the minimum game number
+	 * called by minimum command
+	 */
+	private void setMinimumGames() {
+		System.out.print("Please enter a number: ");
+		String input = user.nextLine();
+		int number;
+		
+		// loop to validate input
+		loop: while(true) {
+			try {
+				number = Integer.parseInt(input);
+				break loop;
+			} catch (NumberFormatException e) {
+				System.out.print("");
+				input = user.nextLine();
+			}
+		} // end of while loop
+		
+		minimumGames = number;
+	} // end of function setMinimumGames
 	
 	/*
 	 * function to sort decks by a category

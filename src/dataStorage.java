@@ -200,7 +200,7 @@ class dataStorage {
 	 * make new deck array from new data
 	 */
 	private void makeNewDecks(String[][] data) {
-		newDecks = new Object[data.length][52];
+		newDecks = new Object[data.length][53];
 		
 		// for loop to fill new decks
 		for(int i = 0; i < newDecks.length; i++) {
@@ -339,6 +339,8 @@ class dataStorage {
 				newDecks[i][50] = 0;
 				newDecks[i][51] = 0;
 			}
+			
+			newDecks[i][52] = 1;	// relevancy
 		} // end of for loop
 	} // end of function makeNewDecks
 	
