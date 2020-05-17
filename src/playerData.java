@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // playerData class created by Garrett Chapman
 // created 05/13/2020
-// last updated 05/13/2020
+// last updated 05/17/2020
 // deals with data about players taken from the database
 
 class playerData {

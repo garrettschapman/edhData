@@ -1,6 +1,6 @@
 // dataStorage class created by Garrett Chapman
 // created 05/12/2020
-// last updated 05/15/2020
+// last updated 05/17/2020
 // sends data collected by the user to the database
 
 class dataStorage {

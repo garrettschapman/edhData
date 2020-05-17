@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // deckData class created by Garrett Chapman
 // created 05/15/2020
-// last updated 05/15/2020
+// last updated 05/17/2020
 // deals with data about the decks taken from the database
 
 class deckData {

@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // edhData class by Garrett Chapman
 // created 05/12/2020
-// last updated 05/14/2020
+// last updated 05/17/2020
 // controls main menu and user functionality
 
 public class edhData {
