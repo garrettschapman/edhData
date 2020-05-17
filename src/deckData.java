@@ -110,7 +110,7 @@ class deckData {
 	 */
 	private void makeDeckList() {
 		rawData = database.getDeckData();
-		deckList = new Object[rawData.length][52];
+		deckList = new Object[rawData.length][53];
 		
 		// for loop to turn raw data into data that can be displayed
 		for (int i = 0; i < deckList.length; i++) {
@@ -186,7 +186,8 @@ class deckData {
 			deckList[i][49] = getRatio(i, 50, 45)*100;	// percent of wins via opponents scooping
 			deckList[i][50] = getRatio(i, 51, 45)*100;	// percent of other wins
 			
-			deckList[i][51] = rawData[i][52];	// relevancy
+			deckList[i][51] = rawData[i][52];		// relevancy
+			deckList[i][52] = getRatio(i, 9, 5);	// average number of opponents per game (winrate should be close to 1/this number)
 		} // end of for loop
 	} // end of function makeDeckList
 	

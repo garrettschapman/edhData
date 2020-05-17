@@ -340,7 +340,7 @@ class dataStorage {
 				newDecks[i][51] = 0;
 			}
 			
-			newDecks[i][52] = 1;	// relevancy
+			newDecks[i][52] = 0;	// relevancy (0 = not relevant, 1 = relevant)
 		} // end of for loop
 	} // end of function makeNewDecks
 	
