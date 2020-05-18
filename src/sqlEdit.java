@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 // sqlEdit class created by Garrett Chapman
 // created 05/11/2020
-// last updated 05/17/2020
+// last updated 05/18/2020
 // handles connection to SQL server
 // reads and writes data to SQL database
 
