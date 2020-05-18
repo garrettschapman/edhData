@@ -47,7 +47,7 @@ class sqlEdit {
 			resultSet = statement.executeQuery(sqlStatement);
 			resultSet.next();
 			numPlayers = resultSet.getInt(1);
-			playerData = new Object[numPlayers][45];
+			playerData = new Object[numPlayers][46];
 			readPlayerData(numPlayers);
 			
 			// deck data

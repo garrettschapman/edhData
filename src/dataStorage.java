@@ -186,7 +186,7 @@ class dataStorage {
 				newPlayers[i][38] = 1;
 				
 				// internal for loop to create the winning player
-				for(int w = 0; w < newPlayers[i].length; w++) {
+				for(int w = 2; w < winner.length; w++) {
 					winner[w] = newPlayers[i][w];
 				} // end of internal for loop
 				
