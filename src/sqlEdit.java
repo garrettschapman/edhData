@@ -125,7 +125,8 @@ class sqlEdit {
 				+ "labmanWins, "
 				+ "comboWins, "
 				+ "scoopWins, "
-				+ "otherWins"
+				+ "otherWins, "
+				+ "totalOpponents"
 				+ " FROM dbo.edhPlayers ORDER BY playerID, totalGames";
 		resultSet = statement.executeQuery(sqlStatement);
 		resultSet.next();
@@ -315,7 +316,8 @@ class sqlEdit {
 					+ "labmanWins, "
 					+ "comboWins, "
 					+ "scoopWins, "
-					+ "otherWins"
+					+ "otherWins, "
+					+ "totalOpponents"
 					+ ") VALUES ("
 					+ playerData[i][0] + ", "
 					+ "'" + playerData[i][1] + "', "
@@ -361,7 +363,8 @@ class sqlEdit {
 					+ playerData[i][41] + ", "
 					+ playerData[i][42] + ", "
 					+ playerData[i][43] + ", "
-					+ playerData[i][44] +");";
+					+ playerData[i][44] + ", "
+					+ playerData[i][45] + ");";
 					
 			newRow(insertStatement);
 		} // end of for loop

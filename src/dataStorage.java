@@ -519,7 +519,7 @@ class dataStorage {
 			currentPlayers = addNew(id, currentPlayers, player);
 		} else {
 			// for loop to update the player's row
-			for(int i = 2; i < 45; i++) {
+			for(int i = 2; i < 46; i++) {
 				currentPlayers[id][i] = Integer.parseInt((currentPlayers[id][i].toString())) + Integer.parseInt(player[i].toString());
 			} // end of for loop
 		}
