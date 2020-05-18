@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // playerData class created by Garrett Chapman
 // created 05/13/2020
-// last updated 05/17/2020
+// last updated 05/18/2020
 // deals with data about players taken from the database
 
 class playerData {
@@ -101,7 +101,7 @@ class playerData {
 	 */
 	private void makePlayerList() {
 		rawData = database.getPlayerData();
-		playerList = new Object[(rawData.length-1)][46];
+		playerList = new Object[(rawData.length-1)][47];
 		
 		// for loop to turn raw data into data that can be displayed
 		for (int i = 0; i < rawData.length; i++) {
@@ -166,6 +166,8 @@ class playerData {
 				winner[43] = getRatio(i, 42, 38)*100;	// percent of other combo wins
 				winner[44] = getRatio(i, 43, 38)*100;	// percent of wins via opponents scooping
 				winner[45] = getRatio(i, 44, 38)*100;	// percent of other wins
+				
+				winner[46] = getRatio(i, 45, 2);	// average number of opponents per game (this doesn't matter for the winner, but it's being set to avoid NullPointerExceptions
 			} else {
 				// actual players
 				playerList[i-1][0] = rawData[i][0]; // player ID
@@ -232,6 +234,8 @@ class playerData {
 				playerList[i-1][43] = getRatio(i, 42, 38)*100;	// percent of other combo wins
 				playerList[i-1][44] = getRatio(i, 43, 38)*100;	// percent of wins via opponents scooping
 				playerList[i-1][45] = getRatio(i, 44, 38)*100;	// percent of other wins
+				
+				playerList[i-1][46] = getRatio(i, 45, 2);	// average number of opponents per game (winrate should be close to 1/this number)
 			}
 		} // end of for loop
 	} // end of function makePlayerList

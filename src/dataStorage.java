@@ -1,6 +1,6 @@
 // dataStorage class created by Garrett Chapman
 // created 05/12/2020
-// last updated 05/17/2020
+// last updated 05/18/2020
 // sends data collected by the user to the database
 
 class dataStorage {
@@ -30,7 +30,7 @@ class dataStorage {
 	 * takes data collected by dataCollection and stores it in the database
 	 */
 	public void storeData(String[][] data) {
-		winner = new Object[45];
+		winner = new Object[46];
 		winner[0] = 0;
 		winner[1] = "Game Winner";
 		for(int i = 2; i < winner.length; i++) {
@@ -70,7 +70,7 @@ class dataStorage {
 	 * makes new player array from new data
 	 */
 	private void makeNewPlayers(String[][] data) {
-		newPlayers = new Object[data.length][45];
+		newPlayers = new Object[data.length][46];
 		
 		// for loop to fill new players
 		for(int i = 0; i < newPlayers.length; i++) {
@@ -178,6 +178,8 @@ class dataStorage {
 				newPlayers[i][43] = 0;
 				newPlayers[i][44] = 0;
 			}
+			
+			newPlayers[i][45] = data.length-1;	// number of opponents
 			
 			switch(data[i][39].toString()) {			// did they win? (comes after so we can set the winner)
 			case "y":
@@ -340,6 +342,7 @@ class dataStorage {
 				newDecks[i][51] = 0;
 			}
 			
+			//TODO switch this once all current data is in and decks have been set
 			newDecks[i][52] = 0;	// relevancy (0 = not relevant, 1 = relevant)
 		} // end of for loop
 	} // end of function makeNewDecks
