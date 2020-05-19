@@ -14,7 +14,7 @@ class playerData {
 	// list of players and their information
 	private Object[][] rawData;
 	private Object[][] playerList;
-	private Object[] winner = new Object[46];
+	private Object[] winner = new Object[47];
 	private int sortColumn = 0;
 	private String columnName = "ID";
 	
