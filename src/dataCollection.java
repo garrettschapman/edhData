@@ -11,7 +11,7 @@ class dataCollection {
 	// variables
 	private String[][] playerData; // array to hold info about the player
 	private int numPlayers; //number of players
-	private String[] colors = {"White", "Blue", "Black", "Red", "Green", "Colorless", 
+	private String[] colors = {"Colorless", "White", "Blue", "Black", "Red", "Green", 
 			"Azorius", "Dimir", "Rakdos", "Gruul", "Selesnya", "Orzhov", "Izzet", "Golgari", "Boros", "Simic",
 			"Esper", "Grixis", "Jund", "Naya", "Bant", "Abzan", "Jeskai", "Sultai", "Mardu", "Temur",
 			"Yore-Tiller", "Glint-Eye", "Dune-Brood", "Ink-Treader", "Witch-Maw", "WUBRG"};
@@ -62,9 +62,104 @@ class dataCollection {
 			
 			System.out.print("Color identity: ");
 			validateText(i, 3, user.nextLine(), colors);
-			
-			System.out.print("Number of colors: ");
-			validateNum(i, 4, user.nextLine());
+			switch(playerData[i][3].toString().trim()) {
+			case "White":
+				playerData[i][4] = "1";
+				break;
+			case "Blue":
+				playerData[i][4] = "1";
+				break;
+			case "Black":
+				playerData[i][4] = "1";
+				break;
+			case "Red":
+				playerData[i][4] = "1";
+				break;
+			case "Green":
+				playerData[i][4] = "1";
+				break;
+			case "Azorius":
+				playerData[i][4] = "2";
+				break;
+			case "Dimir":
+				playerData[i][4] = "2";
+				break;
+			case "Rakdos":
+				playerData[i][4] = "2";
+				break;
+			case "Gruul":
+				playerData[i][4] = "2";
+				break;
+			case "Selesnya":
+				playerData[i][4] = "2";
+				break;
+			case "Orzhov":
+				playerData[i][4] = "2";
+				break;
+			case "Izzet":
+				playerData[i][4] = "2";
+				break;
+			case "Golgari":
+				playerData[i][4] = "2";
+				break;
+			case "Boros":
+				playerData[i][4] = "2";
+				break;
+			case "Simic":
+				playerData[i][4] = "2";
+				break;
+			case "Esper":
+				playerData[i][4] = "3";
+				break;
+			case "Grixis":
+				playerData[i][4] = "3";
+				break;
+			case "Jund":
+				playerData[i][4] = "3";
+				break;
+			case "Naya":
+				playerData[i][4] = "3";
+				break;
+			case "Bant":
+				playerData[i][4] = "3";
+				break;
+			case "Abzan":
+				playerData[i][4] = "3";
+				break;
+			case "Jeskai":
+				playerData[i][4] = "3";
+				break;
+			case "Sultai":
+				playerData[i][4] = "3";
+				break;
+			case "Mardu":
+				playerData[i][4] = "3";
+				break;
+			case "Temur":
+				playerData[i][4] = "3";
+				break;
+			case "Yore-Tiller":
+				playerData[i][4] = "4";
+				break;
+			case "Glint-Eye":
+				playerData[i][4] = "4";
+				break;
+			case "Dune-Brood":
+				playerData[i][4] = "4";
+				break;
+			case "Ink-Treader":
+				playerData[i][4] = "4";
+				break;
+			case "Witch-Maw":
+				playerData[i][4] = "4";
+				break;
+			case "WUBRG":
+				playerData[i][4] = "5";
+				break;
+			default:
+				playerData[i][4] = "0";
+				break;
+			}
 			
 			System.out.print("Did they have fun? y/e/n: ");
 			validateText(i, 5, user.nextLine(), yen);
