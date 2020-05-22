@@ -343,6 +343,10 @@ class deckData {
 		
 		arraySort.sort(deckList, sortColumn);
 		System.out.println(edhData.divider);
+		System.out.print("Press any button to continue.");
+		user.nextLine();
+		
+		System.out.println(edhData.divider);
 	} // end of function getDeckList
 	
 	/*

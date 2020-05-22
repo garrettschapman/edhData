@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // edhData class by Garrett Chapman
 // created 05/12/2020
-// last updated 05/17/2020
+// last updated 05/22/2020
 // controls main menu and user functionality
 
 public class edhData {
@@ -98,13 +98,8 @@ public class edhData {
 	 *  called by add command
 	 */
 	private static void add() {
-		System.out.println(divider);
-		System.out.print("How many players? ");
-		int players = Integer.parseInt(in.nextLine());
-		System.out.println();
-		
 		// collects data from the game
-		dataCollection collect = new dataCollection(players, in);
+		dataCollection collect = new dataCollection(in);
 		collect.collectData();
 		
 		// stores data from the game

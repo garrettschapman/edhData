@@ -355,6 +355,10 @@ class playerData {
 		
 		arraySort.sort(playerList, sortColumn);
 		System.out.println(edhData.divider);
+		System.out.print("Press any button to continue.");
+		user.nextLine();
+		
+		System.out.println(edhData.divider);
 	} // end of function getPlayerList
 	
 	/*

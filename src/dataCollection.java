@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 // dataCollection class by Garrett Chapman
 // created 05/11/2020
-// last updated 05/14/2020
+// last updated 05/22/2020
 // collects data from the user for edhData
 
 class dataCollection {
@@ -20,9 +20,22 @@ class dataCollection {
 	private String[] winCons = {"aggro", "aether", "labman", "combo", "scoops", "other"};
 	
 	// constructor
-	public dataCollection(int players, Scanner in) {
-		playerData = new String[players][41];
-		numPlayers = players;
+	public dataCollection(Scanner in) {
+		System.out.println(edhData.divider);
+		System.out.print("How many players? ");
+		
+		// while loop to make sure user inputs an integer
+		loop: while(true) {
+			try { // checks if the user input an integer
+				numPlayers = Integer.parseInt(in.nextLine());
+				break loop;
+			} catch(NumberFormatException e) {
+				System.out.print("Please input a number: ");
+			} //end of check
+		} // end of while loop
+		System.out.println();
+		
+		playerData = new String[numPlayers][41];
 		user = in;
 	} // end of constructor
 	
