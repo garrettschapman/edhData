@@ -106,7 +106,7 @@ public class edhData {
 		dataStorage store = new dataStorage(database);
 		store.storeData(collect.getPlayerData());
 		
-		System.out.println("Game data collection finished.");
+		System.out.println("Game data collection completed.");
 		System.out.println(edhData.divider);
 		
 		// updates database
