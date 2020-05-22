@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // playerData class created by Garrett Chapman
 // created 05/13/2020
-// last updated 05/18/2020
+// last updated 05/22/2020
 // deals with data about players taken from the database
 
 class playerData {
@@ -349,7 +349,7 @@ class playerData {
 		System.out.println("Players in the database:");
 		// for loop to print each player
 		for(int i = 0; i < playerList.length; i++) {
-			System.out.println("     " + playerList[i][1]);
+			System.out.println("     " + (i+1) + ". " + playerList[i][1]);
 		} // end of for loop
 		System.out.println();
 		
@@ -496,17 +496,18 @@ class playerData {
 	private void printFirstPlayers(int number) {
 		System.out.println(edhData.divider);
 		System.out.println();
-		System.out.format("%-15s", "Player");
+		System.out.format("%-19s", "Player");
 		System.out.print("|" + columnName);
 		System.out.println();
-		System.out.println("===============|==========================");
+		System.out.println("===================|==========================");
 		
 		// for loop to print each player's information
 		for(int i = 0; i < number; i++) {
-			System.out.format("%15s", playerList[i][1].toString());
+			String line = i + ". " + playerList[playerList.length-i][1].toString();
+			System.out.format("%-19s", line);
 			System.out.print("|" + playerList[i][sortColumn].toString());
 			System.out.println();
-			System.out.println("---------------|--------------------------");
+			System.out.println("-------------------|--------------------------");
 		} // end of for loop
 		
 		System.out.println();
@@ -523,17 +524,18 @@ class playerData {
 	private void printLastPlayers(int number) {
 		System.out.println(edhData.divider);
 		System.out.println();
-		System.out.format("%-15s", "Player");
+		System.out.format("%-19s", "Player");
 		System.out.print("|" + columnName);
 		System.out.println();
-		System.out.println("===============|==========================");
+		System.out.println("===================|==========================");
 		
 		// for loop to print each player's information
 		for(int i = 1; i <= number; i++) {
-			System.out.format("%-15s", playerList[playerList.length-i][1].toString());
+			String line = i + ". " + playerList[playerList.length-i][1].toString();
+			System.out.format("%-19s", line);
 			System.out.print("|" + playerList[playerList.length-i][sortColumn].toString());
 			System.out.println();
-			System.out.println("---------------|--------------------------");
+			System.out.println("-------------------|--------------------------");
 		} // end of for loop
 		
 		System.out.println();

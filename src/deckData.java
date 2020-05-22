@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // deckData class created by Garrett Chapman
 // created 05/15/2020
-// last updated 05/17/2020
+// last updated 05/22/2020
 // deals with data about the decks taken from the database
 
 class deckData {
@@ -290,21 +290,24 @@ class deckData {
 		
 		System.out.println(edhData.divider);
 		System.out.println();
-		System.out.format("%-60s", "Decks");
+		System.out.format("%-66s", "Decks");
 		System.out.print("|" + columnName);
 		System.out.println();
-		System.out.println("============================================================|==============================================");
+		System.out.println("==================================================================|==============================================");
 		
+		int deckNum = 1;
 		// for loop to print each deck's information
 		for(int i = 1; i <= number; i++) {
 			if((Integer.parseInt(deckList[deckList.length - i][51].toString()) == 1 && Integer.parseInt(deckList[deckList.length - i][4].toString()) >= minimumGames) || showAllDecks) {	// only show if relevant or more than one game unless specifically told otherwise
-				System.out.format("%-60s", deckList[deckList.length-i][1].toString());
+				String line = deckNum + ". " + deckList[deckList.length-i][1].toString();
+				System.out.format("%-66s", line);
 				System.out.print("|" + deckList[deckList.length-i][sortColumn].toString());
 				System.out.println();
-				System.out.format("%-60s", deckList[deckList.length-i][2].toString());
+				System.out.format("%-66s", deckList[deckList.length-i][2].toString());
 				System.out.print("|");
 				System.out.println();
-				System.out.println("------------------------------------------------------------|----------------------------------------------");
+				System.out.println("------------------------------------------------------------------|----------------------------------------------");
+				deckNum++;
 			} else {
 				if(number < deckList.length) {
 					number++;
@@ -329,10 +332,12 @@ class deckData {
 		arraySort.sort(deckList, 0);
 		
 		System.out.println("Decks in the database:");
+		int deckNum = 1;
 		// for loop to print each deck
 		for(int i = 0; i < deckList.length; i++) {
 			if(((Integer.parseInt(deckList[i][51].toString()) == 1 && Integer.parseInt(deckList[i][4].toString()) >= minimumGames) || showAllDecks)) {	// only show if relevant or more than one game unless specifically told otherwise
-				System.out.println("     " + deckList[i][1].toString().trim() + " - " + deckList[i][2]);
+				System.out.println("     " + deckNum + ". " + deckList[i][1].toString().trim() + " - " + deckList[i][2]);
+				deckNum++;
 			}
 		} // end of for loop
 		
@@ -375,21 +380,24 @@ class deckData {
 		
 		System.out.println(edhData.divider);
 		System.out.println();
-		System.out.format("%-60s", "Deck");
+		System.out.format("%-66s", "Deck");
 		System.out.print("|" + columnName);
 		System.out.println();
-		System.out.println("============================================================|==============================================");
+		System.out.println("==================================================================|==============================================");
 		
+		int deckNum = 1;
 		// for loop to print each deck's information
 		for(int i = 0; i < number; i++) {
 			if(((Integer.parseInt(deckList[i][51].toString()) == 1 && Integer.parseInt(deckList[i][4].toString()) >= minimumGames) || showAllDecks)) {	// only show if relevant or more than one game unless specifically told otherwise
-				System.out.format("%-60s", deckList[i][1].toString());
+				String line = deckNum + ". " + deckList[i][1].toString();
+				System.out.format("%-66s", line);
 				System.out.print("|" + deckList[i][sortColumn].toString());
 				System.out.println();
-				System.out.format("%-60s", deckList[i][2].toString());
+				System.out.format("%-66s", deckList[i][2].toString());
 				System.out.print("|");
 				System.out.println();
-				System.out.println("------------------------------------------------------------|----------------------------------------------");
+				System.out.println("------------------------------------------------------------------|----------------------------------------------");
+				deckNum++;
 			} else {
 				if(number < deckList.length) {
 					number++;
