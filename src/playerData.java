@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // playerData class created by Garrett Chapman
 // created 05/13/2020
-// last updated 05/22/2020
+// last updated 05/23/2020
 // deals with data about players taken from the database
 
 class playerData {
@@ -507,7 +507,7 @@ class playerData {
 		
 		// for loop to print each player's information
 		for(int i = 0; i < number; i++) {
-			String line = i + ". " + playerList[playerList.length-i][1].toString();
+			String line = (i+1) + ". " + playerList[i][1].toString();
 			System.out.format("%-19s", line);
 			System.out.print("|" + playerList[i][sortColumn].toString());
 			System.out.println();
