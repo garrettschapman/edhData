@@ -479,8 +479,14 @@ class playerData {
 		boolean found = false;
 		
 		// get the desired commander
-		System.out.print("Please enter the commander: ");
+		System.out.print("Please enter the player's name: ");
 		String player = fixString(user.nextLine());
+		
+		if(player.equals("Winner")) {
+			found = true;
+			
+			playerScreen(winner);
+		}
 		
 		// for loop to find the right deck
 		for (int i = 0; i < playerList.length; i++) {
@@ -490,11 +496,7 @@ class playerData {
 			if(((player).equals(checkPlayer))) {
 				found = true;
 				System.out.println(edhData.divider);
-				playerScreen(i);
-				
-				System.out.println(edhData.divider);
-				System.out.print("Press any button to continue.");
-				user.nextLine();
+				playerScreen(playerList[i]);
 			}
 		} // end of for loop
 		
@@ -604,46 +606,46 @@ class playerData {
 	 * function to create the player screen
 	 * prints specific information about a player
 	 */
-	private void playerScreen(int row) {
-		System.out.println(playerList[row][1].toString().trim());
+	private void playerScreen(Object[] row) {
+		System.out.println(row[1].toString().trim());
 		System.out.println();
 		
 		System.out.println(edhData.miniDivider); // games and fun
-		System.out.println("Total Games: " + playerList[row][3].toString());
+		System.out.println("Total Games: " + row[3].toString());
 		System.out.println();
 		
 		System.out.println();
 		System.out.println("       Fun (%)     |       Eh (%)      |      Unfun (%)    ");
 		System.out.println("===================|===================|===================");
-		System.out.format("%-19s", playerList[row][4].toString());
+		System.out.format("%-19s", row[4].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][5].toString());
+		System.out.format("%-19s", row[5].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][6].toString());
+		System.out.format("%-19s", row[6].toString());
 		System.out.println();
 		System.out.println("-------------------|-------------------|-------------------");
 		System.out.println();
 		
 		System.out.println(edhData.miniDivider); // winrate
-		System.out.println("Target win percentage: " + playerList[row][46].toString());
-		System.out.println("Actual win percentage: " + playerList[row][39].toString());
+		System.out.println("Target win percentage: " + row[46].toString());
+		System.out.println("Actual win percentage: " + row[39].toString());
 		System.out.println();
 		
 		System.out.println("Types of wins:");
 		System.out.println();
 		System.out.println("     Aggro (%)     |   Aetherflux (%)  |    Lab Man (%)    |     Combo (%)     |     Scoops (%)    |      Other(%)     ");
 		System.out.println("===================|===================|===================|===================|===================|===================");
-		System.out.format("%-19s", playerList[row][40].toString());
+		System.out.format("%-19s", row[40].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][41].toString());
+		System.out.format("%-19s", row[41].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][42].toString());
+		System.out.format("%-19s", row[42].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][43].toString());
+		System.out.format("%-19s", row[43].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][44].toString());
+		System.out.format("%-19s", row[44].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][45].toString());
+		System.out.format("%-19s", row[45].toString());
 		System.out.println();
 		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
 		System.out.println();
@@ -653,83 +655,87 @@ class playerData {
 		System.out.println();
 		System.out.println("   Artifact (%)    |    Creature (%)   |      Land (%)     |  Enchantment (%)  |    Instant (%)    |    Sorcery (%)    |  Planeswalker (%) ");
 		System.out.println("===================|===================|===================|===================|===================|===================|===================");
-		System.out.format("%-19s", playerList[row][9].toString());
+		System.out.format("%-19s", row[9].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][10].toString());
+		System.out.format("%-19s", row[10].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][11].toString());
+		System.out.format("%-19s", row[11].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][12].toString());
+		System.out.format("%-19s", row[12].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][13].toString());
+		System.out.format("%-19s", row[13].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][14].toString());
+		System.out.format("%-19s", row[14].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][15].toString());
+		System.out.format("%-19s", row[15].toString());
 		System.out.println();
 		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
 		System.out.println();
 		
 		System.out.println("      Mana (%)     |      Draw (%)     |  Interaction (%)  |     Threat (%)    |     Combo (%)     |     Other (%)     ");
 		System.out.println("===================|===================|===================|===================|===================|===================");
-		System.out.format("%-19s", playerList[row][16].toString());
+		System.out.format("%-19s", row[16].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][17].toString());
+		System.out.format("%-19s", row[17].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][18].toString());
+		System.out.format("%-19s", row[18].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][19].toString());
+		System.out.format("%-19s", row[19].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][20].toString());
+		System.out.format("%-19s", row[20].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][21].toString());
+		System.out.format("%-19s", row[21].toString());
 		System.out.println();
 		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
 		System.out.println();
 		
-		System.out.println("Average CMC of cards kept: " + playerList[row][8].toString());
+		System.out.println("Average CMC of cards kept: " + row[8].toString());
 		
 		System.out.println(edhData.miniDivider); // pitched cards
-		System.out.println("Average mulligans per game: " + playerList[row][22].toString());
+		System.out.println("Average mulligans per game: " + row[22].toString());
 		System.out.println();
 		System.out.println("Cards pitched:");
 		System.out.println();
 		System.out.println("   Artifact (%)    |    Creature (%)   |      Land (%)     |  Enchantment (%)  |    Instant (%)    |    Sorcery (%)    |  Planeswalker (%) ");
 		System.out.println("===================|===================|===================|===================|===================|===================|===================");
-		System.out.format("%-19s", playerList[row][25].toString());
+		System.out.format("%-19s", row[25].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][26].toString());
+		System.out.format("%-19s", row[26].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][27].toString());
+		System.out.format("%-19s", row[27].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][28].toString());
+		System.out.format("%-19s", row[28].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][29].toString());
+		System.out.format("%-19s", row[29].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][30].toString());
+		System.out.format("%-19s", row[30].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][31].toString());
+		System.out.format("%-19s", row[31].toString());
 		System.out.println();
 		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
 		System.out.println();
 		
 		System.out.println("      Mana (%)     |      Draw (%)     |  Interaction (%)  |     Threat (%)    |     Combo (%)     |     Other (%)     ");
 		System.out.println("===================|===================|===================|===================|===================|===================");
-		System.out.format("%-19s", playerList[row][32].toString());
+		System.out.format("%-19s", row[32].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][33].toString());
+		System.out.format("%-19s", row[33].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][34].toString());
+		System.out.format("%-19s", row[34].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][35].toString());
+		System.out.format("%-19s", row[35].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][36].toString());
+		System.out.format("%-19s", row[36].toString());
 		System.out.print("|");
-		System.out.format("%-19s", playerList[row][37].toString());
+		System.out.format("%-19s", row[37].toString());
 		System.out.println();
 		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
 		System.out.println();
 		
-		System.out.println("Average CMC of cards pitched: " + playerList[row][24].toString());
+		System.out.println("Average CMC of cards pitched: " + row[24].toString());
+		
+		System.out.println(edhData.divider);
+		System.out.print("Press any button to continue.");
+		user.nextLine();
 	} // end of function playerScreen
 } // end of class playerData

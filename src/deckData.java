@@ -96,7 +96,7 @@ class deckData {
 					sortDecks();
 					break;
 				case "view":
-					viewPlayer();
+					viewDeck();
 					break;
 				default:
 					System.out.println(edhData.divider);
@@ -504,15 +504,15 @@ class deckData {
 	} // end of function sortDeck
 	
 	/*
-	 * function to view a players's information
-	 * asks the user for the name
+	 * function to view a deck's information
+	 * asks the user for the commander and the theme
 	 * called by view command
 	 */
-	private void viewPlayer() {
+	private void viewDeck() {
 		boolean found = false;
 		
 		// get the desired commander
-		System.out.print("Please enter the player's name: ");
+		System.out.print("Please enter the commander: ");
 		String commander = fixString(user.nextLine());
 		
 		// get the desired theme
@@ -529,17 +529,13 @@ class deckData {
 				found = true;
 				System.out.println(edhData.divider);
 				deckScreen(i);
-				
-				System.out.println(edhData.divider);
-				System.out.print("Press any button to continue.");
-				user.nextLine();
 			}
 		} // end of for loop
 		
 		if (!found) {
-			System.out.println("There is no player in the database with the desired name.");
+			System.out.println("There is no deck in the database with the desired commander and theme.");
 		}
-	} // end of function viewPlayer
+	} // end of function viewDeck
 	
 	// functions called by other functions
 	
@@ -728,5 +724,9 @@ class deckData {
 		System.out.println();
 		
 		System.out.println("Average CMC of cards pitched: " + deckList[row][30].toString());
+		
+		System.out.println(edhData.divider);
+		System.out.print("Press any button to continue.");
+		user.nextLine();
 	} // end of function deckScreen
 } // end of class deckData
