@@ -96,7 +96,7 @@ class deckData {
 					sortDecks();
 					break;
 				case "view":
-					viewDeck();
+					viewPlayer();
 					break;
 				default:
 					System.out.println(edhData.divider);
@@ -191,7 +191,7 @@ class deckData {
 			deckList[i][50] = getRatio(i, 51, 45)*100;	// percent of other wins
 			
 			deckList[i][51] = rawData[i][52];				// relevancy
-			deckList[i][52] = (1/(getRatio(i, 9, 5)))*100;	// target winrate
+			deckList[i][52] = (1/(getRatio(i, 9, 5)+1))*100;	// target winrate
 		} // end of for loop
 	} // end of function makeDeckList
 	
@@ -504,15 +504,15 @@ class deckData {
 	} // end of function sortDeck
 	
 	/*
-	 * function to view a deck's information
-	 * asks the player for the commander and the theme
+	 * function to view a players's information
+	 * asks the user for the name
 	 * called by view command
 	 */
-	private void viewDeck() {
+	private void viewPlayer() {
 		boolean found = false;
 		
 		// get the desired commander
-		System.out.print("Please enter the commander: ");
+		System.out.print("Please enter the player's name: ");
 		String commander = fixString(user.nextLine());
 		
 		// get the desired theme
@@ -537,9 +537,9 @@ class deckData {
 		} // end of for loop
 		
 		if (!found) {
-			System.out.println("There is no deck in the database with the desired commander and theme.");
+			System.out.println("There is no player in the database with the desired name.");
 		}
-	} // end of function viewDeck
+	} // end of function viewPlayer
 	
 	// functions called by other functions
 	
