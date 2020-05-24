@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // edhData class by Garrett Chapman
 // created 05/12/2020
-// last updated 05/22/2020
+// last updated 05/24/2020
 // controls main menu and user functionality
 
 public class edhData {
@@ -20,6 +20,7 @@ public class edhData {
 			"help",
 			"players"
 	};
+	public static int totalGames = 0;
 	
 	/*
 	 * main menu
@@ -30,6 +31,8 @@ public class edhData {
 		
 		// while loop to allow functionality
 		while(true) {
+			totalGames = Integer.parseInt((database.getPlayerData()[0][2].toString()));
+			
 			mainMenu();
 			commands();
 			try {
@@ -76,6 +79,8 @@ public class edhData {
 		System.out.println("This software is designed to keep track of EDH (Commander) games of Magic: The Gathering, which is created by Wizards of the Coast and not owned by me.");
 		System.out.println("See the github repository here: https://github.com/garrettschapman/edhData");
 		
+		System.out.println(divider);
+		System.out.println("Total Games Played: " + totalGames);
 		System.out.println(divider);
 	} //end of function mainMenu
 	

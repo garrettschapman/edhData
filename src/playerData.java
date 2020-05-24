@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // playerData class created by Garrett Chapman
 // created 05/13/2020
-// last updated 05/23/2020
+// last updated 05/24/2020
 // deals with data about players taken from the database
 
 class playerData {
@@ -248,6 +248,8 @@ class playerData {
 		
 		System.out.println("edhData player information menu");
 		
+		System.out.println(edhData.divider);
+		System.out.println("Total Games Played: " + edhData.totalGames);
 		System.out.println(edhData.divider);
 	} // end of function playerMenu
 	

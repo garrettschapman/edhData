@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // deckData class created by Garrett Chapman
 // created 05/15/2020
-// last updated 05/22/2020
+// last updated 05/24/2020
 // deals with data about the decks taken from the database
 
 class deckData {
@@ -199,6 +199,8 @@ class deckData {
 		
 		System.out.println("edhData deck information menu");
 		
+		System.out.println(edhData.divider);
+		System.out.println("Total Games Played: " + edhData.totalGames);
 		System.out.println(edhData.divider);
 	} // end of function playerMenu
 	
