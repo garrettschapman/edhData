@@ -29,7 +29,8 @@ class deckData {
 			"minimum",
 			"low",
 			"show",
-			"sort"
+			"sort",
+			"view"
 	};
 	private String[] categories = {
 			"cmc",
@@ -93,6 +94,9 @@ class deckData {
 					break;
 				case "sort":
 					sortDecks();
+					break;
+				case "view":
+					viewDeck();
 					break;
 				default:
 					System.out.println(edhData.divider);
@@ -186,8 +190,8 @@ class deckData {
 			deckList[i][49] = getRatio(i, 50, 45)*100;	// percent of wins via opponents scooping
 			deckList[i][50] = getRatio(i, 51, 45)*100;	// percent of other wins
 			
-			deckList[i][51] = rawData[i][52];		// relevancy
-			deckList[i][52] = getRatio(i, 9, 5);	// average number of opponents per game (winrate should be close to 1/this number)
+			deckList[i][51] = rawData[i][52];				// relevancy
+			deckList[i][52] = (1/(getRatio(i, 9, 5)))*100;	// average number of opponents per game (winrate should be close to 1/this number)
 		} // end of for loop
 	} // end of function makeDeckList
 	
@@ -249,6 +253,8 @@ class deckData {
 		System.out.println("     Tells the program to show all decks, even decks that are no longer in the meta or decks that do not have the minimum number of games.");
 		System.out.println("sort");
 		System.out.println("     Asks for a category and sorts all decks in the database by that category.");
+		System.out.println("view");
+		System.out.println("     Asks for a commander and a theme and displays more specific information about the deck.");
 		System.out.println();
 		System.out.println(edhData.divider);
 		System.out.print("Press any button to continue.");
@@ -497,6 +503,44 @@ class deckData {
 		System.out.println(edhData.divider);
 	} // end of function sortDeck
 	
+	/*
+	 * function to view a deck's information
+	 * asks the player for the commander and the theme
+	 * called by view command
+	 */
+	private void viewDeck() {
+		boolean found = false;
+		
+		// get the desired commander
+		System.out.print("Please enter the commander: ");
+		String commander = fixString(user.nextLine());
+		
+		// get the desired theme
+		System.out.print("Please enter the theme: ");
+		String theme = fixString(user.nextLine());
+		
+		// for loop to find the right deck
+		for (int i = 0; i < deckList.length; i++) {
+			String checkCommander = deckList[i][1].toString().replaceAll("\\P{Print}", "").trim();
+			String checkTheme = deckList[i][2].toString().replaceAll("\\P{Print}", "").trim();
+			
+			// the deck must have the same commander and theme
+			if(((commander).equals(checkCommander)) && ((theme).equals(checkTheme))) {
+				found = true;
+				System.out.println(edhData.divider);
+				deckScreen(i);
+				
+				System.out.println(edhData.divider);
+				System.out.print("Press any button to continue.");
+				user.nextLine();
+			}
+		} // end of for loop
+		
+		if (!found) {
+			System.out.println("There is no deck in the database with the desired commander and theme.");
+		}
+	} // end of function viewDeck
+	
 	// functions called by other functions
 	
 	/*
@@ -528,4 +572,161 @@ class deckData {
 		System.out.println();
 		System.out.println();
 	} // end of function deckCommands
+	
+	/*
+	 * function to remove apostrophes
+	 * SQL does not like having apostrophes written to it
+	 */
+	private String fixString(String input) {
+		input = input.replace("'", "");
+		return input;
+	} // end of function fixString
+	
+	/*
+	 * function to create the deck screen
+	 * prints specific information about a deck
+	 */
+	private void deckScreen(int row) {
+		System.out.println(deckList[row][1].toString().trim() + " - " + deckList[row][2].toString().trim());
+		System.out.println("Color Identity: " + deckList[row][3].toString());
+		System.out.println();
+		
+		System.out.println(edhData.miniDivider); // games and fun
+		System.out.println("Total Games: " + deckList[row][4].toString());
+		System.out.println();
+		
+		System.out.println("For the player:");
+		System.out.println();
+		System.out.println("       Fun (%)     |       Eh (%)      |      Unfun (%)    ");
+		System.out.println("===================|===================|===================");
+		System.out.format("%-19s", deckList[row][5].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][6].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][7].toString());
+		System.out.println();
+		System.out.println("-------------------|-------------------|-------------------");
+		System.out.println();
+		
+		System.out.println("For opponents:");
+		System.out.println();
+		System.out.println("       Fun (%)     |       Eh (%)      |      Unfun (%)    ");
+		System.out.println("===================|===================|===================");
+		System.out.format("%-19s", deckList[row][8].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][9].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][10].toString());
+		System.out.println();
+		System.out.println("-------------------|-------------------|-------------------");
+		System.out.println();
+		
+		System.out.println(edhData.miniDivider); // winrate
+		System.out.println("Target win percentage: " + deckList[row][52].toString());
+		System.out.println("Actual win percentage: " + deckList[row][44].toString());
+		System.out.println();
+		
+		System.out.println("Types of wins:");
+		System.out.println();
+		System.out.println("     Aggro (%)     |   Aetherflux (%)  |    Lab Man (%)    |     Combo (%)     |     Scoops (%)    |      Other(%)     ");
+		System.out.println("===================|===================|===================|===================|===================|===================");
+		System.out.format("%-19s", deckList[row][45].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][46].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][47].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][48].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][49].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][50].toString());
+		System.out.println();
+		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
+		System.out.println();
+		
+		System.out.println(edhData.miniDivider); // kept cards
+		System.out.println("Cards kept in hand:");
+		System.out.println();
+		System.out.println("   Artifact (%)    |    Creature (%)   |      Land (%)     |  Enchantment (%)  |    Instant (%)    |    Sorcery (%)    |  Planeswalker (%) ");
+		System.out.println("===================|===================|===================|===================|===================|===================|===================");
+		System.out.format("%-19s", deckList[row][15].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][16].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][17].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][18].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][19].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][20].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][21].toString());
+		System.out.println();
+		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
+		System.out.println();
+		
+		System.out.println("      Mana (%)     |      Draw (%)     |  Interaction (%)  |     Threat (%)    |     Combo (%)     |     Other (%)     ");
+		System.out.println("===================|===================|===================|===================|===================|===================");
+		System.out.format("%-19s", deckList[row][22].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][23].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][24].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][25].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][26].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][27].toString());
+		System.out.println();
+		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
+		System.out.println();
+		
+		System.out.println("Average CMC of cards kept: " + deckList[row][14].toString());
+		
+		System.out.println(edhData.miniDivider); // pitched cards
+		System.out.println("Average mulligans per game: " + deckList[row][28].toString());
+		System.out.println();
+		System.out.println("Cards pitched:");
+		System.out.println();
+		System.out.println("   Artifact (%)    |    Creature (%)   |      Land (%)     |  Enchantment (%)  |    Instant (%)    |    Sorcery (%)    |  Planeswalker (%) ");
+		System.out.println("===================|===================|===================|===================|===================|===================|===================");
+		System.out.format("%-19s", deckList[row][32].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][33].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][34].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][35].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][36].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][37].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][38].toString());
+		System.out.println();
+		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
+		System.out.println();
+		
+		System.out.println("      Mana (%)     |      Draw (%)     |  Interaction (%)  |     Threat (%)    |     Combo (%)     |     Other (%)     ");
+		System.out.println("===================|===================|===================|===================|===================|===================");
+		System.out.format("%-19s", deckList[row][39].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][40].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][41].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][42].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][43].toString());
+		System.out.print("|");
+		System.out.format("%-19s", deckList[row][44].toString());
+		System.out.println();
+		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
+		System.out.println();
+		
+		System.out.println("Average CMC of cards pitched: " + deckList[row][30].toString());
+	} // end of function deckScreen
 } // end of class deckData
