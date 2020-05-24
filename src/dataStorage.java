@@ -1,6 +1,6 @@
 // dataStorage class created by Garrett Chapman
 // created 05/12/2020
-// last updated 05/18/2020
+// last updated 05/24/2020
 // sends data collected by the user to the database
 
 class dataStorage {
@@ -196,6 +196,10 @@ class dataStorage {
 				break;
 			}
 		} // end of external for loop
+		
+		if (Integer.parseInt(winner[38].toString()) == 0) { // makes sure a game is added to the database regardless
+			winner[2] = 1;
+		}
 	} // end of function makeNewPlayers
 	
 	/*
