@@ -135,7 +135,7 @@ class deckData {
 			
 			// number cards kept in hand
 			int keptCards = 0;
-			for (int k = 23; k < 28; k++) {
+			for (int k = 23; k < 29; k++) {
 				keptCards += Integer.parseInt(rawData[i][k].toString());
 			} // end of for loop to determine the total number of cards kept
 			
@@ -164,7 +164,7 @@ class deckData {
 			// stuff about mulligans
 			deckList[i][28] = getRatio(i, 29, 5);	// average mulligans per game
 			deckList[i][29] = getRatio(i, 30, 5);	// average number of cards pitched per game
-			deckList[i][30] = getRatioComplex(1, 31, (Integer.parseInt(rawData[i][30].toString()) - Integer.parseInt(rawData[i][34].toString())));	// average CMC of cards pitched
+			deckList[i][30] = getRatioComplex(i, 31, (Integer.parseInt(rawData[i][30].toString()) - Integer.parseInt(rawData[i][34].toString())));	// average CMC of cards pitched
 			
 			deckList[i][31] = getRatio(i, 32, 30)*100;	// percent of artifacts pitched
 			deckList[i][32] = getRatio(i, 33, 30)*100;	// percent of creatures pitched
@@ -191,7 +191,7 @@ class deckData {
 			deckList[i][50] = getRatio(i, 51, 45)*100;	// percent of other wins
 			
 			deckList[i][51] = rawData[i][52];				// relevancy
-			deckList[i][52] = (1/(getRatio(i, 9, 5)))*100;	// average number of opponents per game (winrate should be close to 1/this number)
+			deckList[i][52] = (1/(getRatio(i, 9, 5)))*100;	// target winrate
 		} // end of for loop
 	} // end of function makeDeckList
 	
@@ -693,6 +693,8 @@ class deckData {
 		System.out.println();
 		System.out.println("   Artifact (%)    |    Creature (%)   |      Land (%)     |  Enchantment (%)  |    Instant (%)    |    Sorcery (%)    |  Planeswalker (%) ");
 		System.out.println("===================|===================|===================|===================|===================|===================|===================");
+		System.out.format("%-19s", deckList[row][31].toString());
+		System.out.print("|");
 		System.out.format("%-19s", deckList[row][32].toString());
 		System.out.print("|");
 		System.out.format("%-19s", deckList[row][33].toString());
@@ -704,14 +706,14 @@ class deckData {
 		System.out.format("%-19s", deckList[row][36].toString());
 		System.out.print("|");
 		System.out.format("%-19s", deckList[row][37].toString());
-		System.out.print("|");
-		System.out.format("%-19s", deckList[row][38].toString());
 		System.out.println();
 		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
 		System.out.println();
 		
 		System.out.println("      Mana (%)     |      Draw (%)     |  Interaction (%)  |     Threat (%)    |     Combo (%)     |     Other (%)     ");
 		System.out.println("===================|===================|===================|===================|===================|===================");
+		System.out.format("%-19s", deckList[row][38].toString());
+		System.out.print("|");
 		System.out.format("%-19s", deckList[row][39].toString());
 		System.out.print("|");
 		System.out.format("%-19s", deckList[row][40].toString());
@@ -721,8 +723,6 @@ class deckData {
 		System.out.format("%-19s", deckList[row][42].toString());
 		System.out.print("|");
 		System.out.format("%-19s", deckList[row][43].toString());
-		System.out.print("|");
-		System.out.format("%-19s", deckList[row][44].toString());
 		System.out.println();
 		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
 		System.out.println();
