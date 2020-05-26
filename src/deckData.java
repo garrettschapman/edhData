@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // deckData class created by Garrett Chapman
 // created 05/15/2020
-// last updated 05/24/2020
+// last updated 05/26/2020
 // deals with data about the decks taken from the database
 
 class deckData {
@@ -184,7 +184,7 @@ class deckData {
 			// stuff about wins
 			deckList[i][44] = getRatio(i, 45, 5)*100;	// win rate
 			deckList[i][45] = getRatio(i, 46, 45)*100;	// percent of aggro wins
-			deckList[i][46] = getRatio(i, 47, 45)*100;	// percent of aetherflux reservoir wins
+			deckList[i][46] = getRatio(i, 47, 45)*100;	// percent of burn wins
 			deckList[i][47] = getRatio(i, 48, 45)*100;	// percent of laboratory maniac wins
 			deckList[i][48] = getRatio(i, 49, 45)*100;	// percent of other combo wins
 			deckList[i][49] = getRatio(i, 50, 45)*100;	// percent of wins via opponents scooping
@@ -624,7 +624,7 @@ class deckData {
 		
 		System.out.println("Types of wins:");
 		System.out.println();
-		System.out.println("     Aggro (%)     |   Aetherflux (%)  |    Lab Man (%)    |     Combo (%)     |     Scoops (%)    |      Other(%)     ");
+		System.out.println("     Aggro (%)     |      Burn (%)     |    Lab Man (%)    |     Combo (%)     |     Scoops (%)    |      Other(%)     ");
 		System.out.println("===================|===================|===================|===================|===================|===================");
 		System.out.format("%-19s", deckList[row][45].toString());
 		System.out.print("|");

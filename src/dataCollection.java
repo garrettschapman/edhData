@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 // dataCollection class by Garrett Chapman
 // created 05/11/2020
-// last updated 05/25/2020
+// last updated 05/26/2020
 // collects data from the user for edhData
 
 class dataCollection {
@@ -17,7 +17,7 @@ class dataCollection {
 			"Yore-Tiller", "Glint-Eye", "Dune-Brood", "Ink-Treader", "Witch-Maw", "WUBRG"};
 	private String[] yn = {"y", "n"};
 	private String[] yen = {"y", "e", "n"};
-	private String[] winCons = {"aggro", "aether", "labman", "combo", "scoops", "other"};
+	private String[] winCons = {"aggro", "burn", "labman", "combo", "scoops", "other"};
 	
 	// constructor
 	public dataCollection(Scanner in) {
@@ -312,7 +312,7 @@ class dataCollection {
 				if (playerData[i][39].equals("y")) {
 					winnerFound = true;
 					
-					System.out.print("How did they win? aggro/aether/labman/combo/scoops/other: ");
+					System.out.print("How did they win? aggro/burn/labman/combo/scoops/other: ");
 					validateText(i, 40, user.nextLine(), winCons);
 				} else {
 					playerData[i][40] = "-";

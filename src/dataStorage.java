@@ -1,6 +1,6 @@
 // dataStorage class created by Garrett Chapman
 // created 05/12/2020
-// last updated 05/24/2020
+// last updated 05/26/2020
 // sends data collected by the user to the database
 
 class dataStorage {
@@ -130,7 +130,7 @@ class dataStorage {
 				newPlayers[i][43] = 0;
 				newPlayers[i][44] = 0;
 				break;
-			case "aether":
+			case "burn":
 				newPlayers[i][39] = 0;
 				newPlayers[i][40] = 1;
 				newPlayers[i][41] = 0;
@@ -297,7 +297,7 @@ class dataStorage {
 				newDecks[i][50] = 0;
 				newDecks[i][51] = 0;
 				break;
-			case "aether":
+			case "burn":
 				newDecks[i][46] = 0;
 				newDecks[i][47] = 1;
 				newDecks[i][48] = 0;
@@ -398,7 +398,7 @@ class dataStorage {
 				newGames[i][12] = 0;
 				newGames[i][13] = 0;
 				break;
-			case "aether":
+			case "burn":
 				newGames[i][8] = 0;
 				newGames[i][9] = 1;
 				newGames[i][10] = 0;

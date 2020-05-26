@@ -165,7 +165,7 @@ class playerData {
 				winner[38] = getRatio(i, 7, 2)*100;		// scoop rate
 				winner[39] = getRatio(i, 38, 2)*100;	// win rate
 				winner[40] = getRatio(i, 39, 38)*100;	// percent of aggro wins
-				winner[41] = getRatio(i, 40, 38)*100;	// percent of aetherflux reservoir wins
+				winner[41] = getRatio(i, 40, 38)*100;	// percent of burn wins
 				winner[42] = getRatio(i, 41, 38)*100;	// percent of laboratory maniac wins
 				winner[43] = getRatio(i, 42, 38)*100;	// percent of other combo wins
 				winner[44] = getRatio(i, 43, 38)*100;	// percent of wins via opponents scooping
@@ -233,7 +233,7 @@ class playerData {
 				playerList[i-1][38] = getRatio(i, 7, 2)*100;	// scoop rate
 				playerList[i-1][39] = getRatio(i, 38, 2)*100;	// win rate
 				playerList[i-1][40] = getRatio(i, 39, 38)*100;	// percent of aggro wins
-				playerList[i-1][41] = getRatio(i, 40, 38)*100;	// percent of aetherflux reservoir wins
+				playerList[i-1][41] = getRatio(i, 40, 38)*100;	// percent of burn wins
 				playerList[i-1][42] = getRatio(i, 41, 38)*100;	// percent of laboratory maniac wins
 				playerList[i-1][43] = getRatio(i, 42, 38)*100;	// percent of other combo wins
 				playerList[i-1][44] = getRatio(i, 43, 38)*100;	// percent of wins via opponents scooping
@@ -633,7 +633,7 @@ class playerData {
 		
 		System.out.println("Types of wins:");
 		System.out.println();
-		System.out.println("     Aggro (%)     |   Aetherflux (%)  |    Lab Man (%)    |     Combo (%)     |     Scoops (%)    |      Other(%)     ");
+		System.out.println("     Aggro (%)     |      Burn (%)     |    Lab Man (%)    |     Combo (%)     |     Scoops (%)    |      Other(%)     ");
 		System.out.println("===================|===================|===================|===================|===================|===================");
 		System.out.format("%-19s", row[40].toString());
 		System.out.print("|");
