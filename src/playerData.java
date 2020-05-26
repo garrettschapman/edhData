@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // playerData class created by Garrett Chapman
 // created 05/13/2020
-// last updated 05/24/2020
+// last updated 05/26/2020
 // deals with data about players taken from the database
 
 class playerData {
@@ -649,8 +649,12 @@ class playerData {
 		System.out.println();
 		System.out.println("-------------------|-------------------|-------------------|-------------------|-------------------|-------------------");
 		System.out.println();
+		System.out.println("Scoop Rate: " + row[38].toString());
+		System.out.println();
 		
 		System.out.println(edhData.miniDivider); // kept cards
+		System.out.println("Average Number in Turn Order: " + row[2].toString());
+		System.out.println();
 		System.out.println("Cards kept in hand:");
 		System.out.println();
 		System.out.println("   Artifact (%)    |    Creature (%)   |      Land (%)     |  Enchantment (%)  |    Instant (%)    |    Sorcery (%)    |  Planeswalker (%) ");
